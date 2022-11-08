@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 
+ *
  * @author unknown
- * 
+ *
  */
 public class ClassTable {
   private List<String> mImports;
@@ -146,9 +146,9 @@ public class ClassTable {
   }
 
   /*
-   * 
+   *
    * Get subTypes from a given class name
-   * 
+   *
    */
   public List<Class> subTypes(String cname) throws ClassNotFoundException {
     List<Class> list = new ArrayList<>();
@@ -167,9 +167,9 @@ public class ClassTable {
   }
 
   /*
-   * 
+   *
    * Get superTypes from class of given name
-   * 
+   *
    */
   public List<Class> subTypes2(String cname) throws ClassNotFoundException {
     List<Class> list = new ArrayList<>();

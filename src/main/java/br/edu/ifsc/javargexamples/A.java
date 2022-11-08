@@ -10,6 +10,7 @@ package br.edu.ifsc.javargexamples;
  * @author samuel
  * 
  */
+ 
 public class A {
   public int a1;
   public int a2;

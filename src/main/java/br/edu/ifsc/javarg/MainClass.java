@@ -11,31 +11,28 @@ import br.edu.ifsc.javargexamples.C;
  * @author unknown
  *
  */
+
+@FunctionalInterface
+interface GFI<t> {
+  t func();
+}
+
 @SuppressWarnings("all")
 public class MainClass {
 
   public static void main(String[] args) {
-    if (new br.edu.ifsc.javargexamples.A(-145, -753, false).a3) {
-      if (true) {
-        if (true) {
-          float qy;
-        }
-        br.edu.ifsc.javargexamples.B am = new br.edu.ifsc.javargexamples.B();
-      } else {
-        byte a = 1;
-        short u = -107;
-        br.edu.ifsc.javargexamples.Aextend na = new br.edu.ifsc.javargexamples.Aextend(
-          1428588,
-          2591583
-        );
-        byte yg = -128;
-      }
-    } else {
-      int xn;
-      br.edu.ifsc.javargexamples.B kh = new br.edu.ifsc.javargexamples.B();
-      double cb = 1.1170927842351615E188;
-      boolean lf;
-      br.edu.ifsc.javargexamples.Aextend yp;
-    }
+
+    GFI<String> a = () -> "hello";
+    GFI<Integer> b = () -> 1 + 3 * 472;
+    GFI<Double> c = () -> 3 + 0.14159;
+    GFI<Byte> e = () -> 41;
+    
+    GFI<Boolean> j = () -> new br.edu.ifsc.javargexamples.A(2, 180, true).a3;
+    GFI<br.edu.ifsc.javargexamples.C> f = ()-> new br.edu.ifsc.javargexamples.C();
+    GFI<br.edu.ifsc.javargexamples.C> g = () -> new br.edu.ifsc.javargexamples.C();
+    GFI<br.edu.ifsc.javargexamples.C> h = () -> new br.edu.ifsc.javargexamples.C();
+    GFI<br.edu.ifsc.javargexamples.C> k = () -> new br.edu.ifsc.javargexamples.C();
+    GFI<br.edu.ifsc.javargexamples.AextendExtend> i = () -> new br.edu.ifsc.javargexamples.AextendExtend(new br.edu.ifsc.javargexamples.A(5389, -9740, false).getA1(), 2);
+
   }
 }

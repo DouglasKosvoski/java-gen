@@ -803,8 +803,8 @@ public class MainTests {
    * Generate Lambda expressions from `JRGCore.java`
    * 
    */
-  // @Example
-  // @Property(tries = 10)
+  @Example
+  @Property(tries = 10)
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
 

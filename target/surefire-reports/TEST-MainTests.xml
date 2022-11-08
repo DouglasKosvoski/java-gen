@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="MainTests" time="0.695" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="MainTests" time="0.593" tests="1" errors="0" skipped="0" failures="1">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value=""/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/attory/Documents/Github/java-gen/target/test-classes:/home/attory/Documents/Github/java-gen/target/classes:/home/attory/.m2/repository/com/github/javaparser/javaparser-symbol-solver-core/3.24.4/javaparser-symbol-solver-core-3.24.4.jar:/home/attory/.m2/repository/com/github/javaparser/javaparser-core/3.24.4/javaparser-core-3.24.4.jar:/home/attory/.m2/repository/org/javassist/javassist/3.29.0-GA/javassist-3.29.0-GA.jar:/home/attory/.m2/repository/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar:/home/attory/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/attory/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/attory/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/attory/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar:/home/attory/.m2/repository/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar:/home/attory/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/attory/.m2/repository/net/jqwik/jqwik/1.3.5/jqwik-1.3.5.jar:/home/attory/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/attory/.m2/repository/net/jqwik/jqwik-api/1.3.5/jqwik-api-1.3.5.jar:/home/attory/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar:/home/attory/.m2/repository/net/jqwik/jqwik-engine/1.3.5/jqwik-engine-1.3.5.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-engine/1.6.2/junit-platform-engine-1.6.2.jar:/home/attory/.m2/repository/org/assertj/assertj-core/3.17.2/assertj-core-3.17.2.jar:/home/attory/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/attory/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.class.path" value="/home/attory/Documents/Github/java-gen/target/test-classes:/home/attory/Documents/Github/java-gen/target/classes:/home/attory/.m2/repository/com/github/javaparser/javaparser-symbol-solver-core/3.24.7/javaparser-symbol-solver-core-3.24.7.jar:/home/attory/.m2/repository/com/github/javaparser/javaparser-core/3.24.7/javaparser-core-3.24.7.jar:/home/attory/.m2/repository/org/javassist/javassist/3.29.2-GA/javassist-3.29.2-GA.jar:/home/attory/.m2/repository/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar:/home/attory/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/attory/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/attory/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/attory/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar:/home/attory/.m2/repository/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar:/home/attory/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/attory/.m2/repository/net/jqwik/jqwik/1.3.5/jqwik-1.3.5.jar:/home/attory/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/attory/.m2/repository/net/jqwik/jqwik-api/1.3.5/jqwik-api-1.3.5.jar:/home/attory/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar:/home/attory/.m2/repository/net/jqwik/jqwik-engine/1.3.5/jqwik-engine-1.3.5.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-engine/1.6.2/junit-platform-engine-1.6.2.jar:/home/attory/.m2/repository/org/assertj/assertj-core/3.17.2/assertj-core-3.17.2.jar:/home/attory/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/attory/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="java.vm.vendor" value="Flathub"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://flathub.org"/>
@@ -17,10 +17,9 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/app/jdk/lib"/>
-    <property name="sun.java.command" value="/home/attory/Documents/Github/java-gen/target/surefire/surefirebooter15107642236090279134.jar /home/attory/Documents/Github/java-gen/target/surefire 2022-10-18T11-01-47_966-jvmRun1 surefire9890800073113871973tmp surefire_06695185167144160665tmp"/>
+    <property name="sun.java.command" value="/home/attory/Documents/Github/java-gen/target/surefire/surefirebooter984362415627344525.jar /home/attory/Documents/Github/java-gen/target/surefire 2022-11-08T12-50-23_390-jvmRun1 surefire5027084352372796799tmp surefire_011341265289167595174tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="br.edu.ifsc.javargtest.MainTests"/>
-    <property name="surefire.test.class.path" value="/home/attory/Documents/Github/java-gen/target/test-classes:/home/attory/Documents/Github/java-gen/target/classes:/home/attory/.m2/repository/com/github/javaparser/javaparser-symbol-solver-core/3.24.4/javaparser-symbol-solver-core-3.24.4.jar:/home/attory/.m2/repository/com/github/javaparser/javaparser-core/3.24.4/javaparser-core-3.24.4.jar:/home/attory/.m2/repository/org/javassist/javassist/3.29.0-GA/javassist-3.29.0-GA.jar:/home/attory/.m2/repository/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar:/home/attory/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/attory/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/attory/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/attory/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar:/home/attory/.m2/repository/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar:/home/attory/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/attory/.m2/repository/net/jqwik/jqwik/1.3.5/jqwik-1.3.5.jar:/home/attory/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/attory/.m2/repository/net/jqwik/jqwik-api/1.3.5/jqwik-api-1.3.5.jar:/home/attory/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar:/home/attory/.m2/repository/net/jqwik/jqwik-engine/1.3.5/jqwik-engine-1.3.5.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-engine/1.6.2/junit-platform-engine-1.6.2.jar:/home/attory/.m2/repository/org/assertj/assertj-core/3.17.2/assertj-core-3.17.2.jar:/home/attory/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/attory/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="surefire.test.class.path" value="/home/attory/Documents/Github/java-gen/target/test-classes:/home/attory/Documents/Github/java-gen/target/classes:/home/attory/.m2/repository/com/github/javaparser/javaparser-symbol-solver-core/3.24.7/javaparser-symbol-solver-core-3.24.7.jar:/home/attory/.m2/repository/com/github/javaparser/javaparser-core/3.24.7/javaparser-core-3.24.7.jar:/home/attory/.m2/repository/org/javassist/javassist/3.29.2-GA/javassist-3.29.2-GA.jar:/home/attory/.m2/repository/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar:/home/attory/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/attory/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/attory/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/attory/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar:/home/attory/.m2/repository/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar:/home/attory/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/attory/.m2/repository/net/jqwik/jqwik/1.3.5/jqwik-1.3.5.jar:/home/attory/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/attory/.m2/repository/net/jqwik/jqwik-api/1.3.5/jqwik-api-1.3.5.jar:/home/attory/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar:/home/attory/.m2/repository/net/jqwik/jqwik-engine/1.3.5/jqwik-engine-1.3.5.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-engine/1.6.2/junit-platform-engine-1.6.2.jar:/home/attory/.m2/repository/org/assertj/assertj-core/3.17.2/assertj-core-3.17.2.jar:/home/attory/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/attory/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/attory"/>
     <property name="user.language" value="en"/>
@@ -34,12 +33,12 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/attory/Documents/Github/java-gen/target/surefire/surefirebooter15107642236090279134.jar"/>
+    <property name="surefire.real.class.path" value="/home/attory/Documents/Github/java-gen/target/surefire/surefirebooter984362415627344525.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.14+8"/>
     <property name="user.name" value="attory"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="5.15.0-50-generic"/>
+    <property name="os.version" value="5.15.0-52-generic"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
@@ -62,5 +61,32 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="checkGenList" classname="br.edu.ifsc.javargtest.MainTests" time="0.333"/>
+  <testcase name="checkGenLambdaExpr" classname="br.edu.ifsc.javargtest.MainTests" time="0.278">
+    <failure message="A reference was unexpectedly null." type="java.lang.AssertionError">java.lang.AssertionError: A reference was unexpectedly null.
+	at br.edu.ifsc.javargtest.MainTests.checkGenLambdaExpr(MainTests.java:813)
+</failure>
+    <system-out><![CDATA[checkGenLambdaExpr: br.edu.ifsc.javargexamples.C c -> new br.edu.ifsc.javargexamples.C()
+checkGenLambdaExpr: byte b -> 41
+checkGenLambdaExpr: br.edu.ifsc.javargexamples.C a -> new br.edu.ifsc.javargexamples.C()
+checkGenLambdaExpr: br.edu.ifsc.javargexamples.C d -> new br.edu.ifsc.javargexamples.C()
+checkGenLambdaExpr: br.edu.ifsc.javargexamples.AextendExtend a -> new br.edu.ifsc.javargexamples.AextendExtend(new br.edu.ifsc.javargexamples.A(5389, -9740, false).getA1(), 2)
+checkGenLambdaExpr: boolean f -> new br.edu.ifsc.javargexamples.A(2, 180, true).a3
+checkGenLambdaExpr: br.edu.ifsc.javargexamples.C b -> new br.edu.ifsc.javargexamples.C()
+timestamp = 2022-11-08T12:50:24.989704, MainTests:checkGenLambdaExpr = 
+  java.lang.AssertionError:
+    A reference was unexpectedly null.
+
+                              |-------------------jqwik-------------------
+tries = 8                     | # of calls to property
+checks = 8                    | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = PREVIOUS_SEED | use the previous seed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 1          | # of all combined edge cases
+edge-cases#tried = 0          | # of edge cases tried in current run
+seed = 3321657410542809635    | random seed to reproduce generated values
+
+
+]]></system-out>
+  </testcase>
 </testsuite>
