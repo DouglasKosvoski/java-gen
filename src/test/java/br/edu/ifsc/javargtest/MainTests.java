@@ -804,13 +804,36 @@ public class MainTests {
    * 
    */
   @Example
-  @Property(tries = 10)
+  // @Property(tries = 1)
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
 
     Arbitrary<LambdaExpr> e = mCore.genLambdaExpr(mCtx);
 
-    System.out.println("checkGenLambdaExpr: " + e.sample());
+    String expr = e.sample().toString();
+
+    String ret = "GFI";
+    for (int i = 0; i < expr.split(" ").length; i++) {
+      switch (i) {
+        case 0:
+          ret = ret.concat("<" + expr.split(" ")[i] + ">");
+          break;
+        case 1:
+          ret = ret.concat(" " + expr.split(" ")[i] + " ");
+          break;
+        case 2:
+          ret = ret.concat("= () ->");
+          break;
+        
+        default:
+          ret = ret.concat(" " + expr.split(" ")[i]);
+          break;
+
+      }
+    }
+    ret = ret.concat(";");
+    System.out.println("antigo == checkGenLambdaExpr: " + expr);
+    System.out.println("novo   == checkGenLambdaExpr: " + ret);
 
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::fim");
 
