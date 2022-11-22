@@ -27,9 +27,10 @@ import org.junit.Test;
 /**
  *
  * @author samuel
- * 
+ *
  */
 public class MainTests {
+
   private static final String SKELETON_PATH =
     "src/main/java/br/edu/ifsc/javarg/MainClass.java";
 
@@ -57,7 +58,9 @@ public class MainTests {
 
   @BeforeTry
   public void createObjects() {
-    mCT = new ClassTable(loadImports());
+    List<String> imports = loadImports();
+
+    mCT = new ClassTable(imports);
 
     mBase = new JRGBase(mCT);
 
@@ -82,14 +85,16 @@ public class MainTests {
       list.add(i.getName().asString());
     }
 
+    // System.out.println("\nImports encontrados pelo CT: " + list.toString());
+
     return list;
   }
 
   /*
-   * 
+   *
    * Write AST - Arbitrary Sintax Tree to file
    * using FileWriter output filename is `ast.dot`
-   * 
+   *
    */
   private void dumpAST() throws IOException {
     DotPrinter printer = new DotPrinter(true);
@@ -132,6 +137,11 @@ public class MainTests {
    *                                *
    **********************************/
 
+  @Example
+  boolean teste_vazio() {
+    return true;
+  }
+
   /*
    *
    * Generate a random primitive type all available primitive
@@ -139,12 +149,12 @@ public class MainTests {
    * then use 'net.jqwik.api.Arbitraries' to fetch all possible types
    *
    */
-  // @Example
+  // @Property( tries = 1)
   boolean checkGenPrimitiveType() {
     Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypes();
 
-    Arbitrary<LiteralExpr> e = t.flatMap(
-      tp -> mBase.genPrimitiveType(new PrimitiveType(tp))
+    Arbitrary<LiteralExpr> e = t.flatMap(tp ->
+      mBase.genPrimitiveType(new PrimitiveType(tp))
     );
 
     System.out.println(
@@ -160,7 +170,7 @@ public class MainTests {
    * and max_length = 5, ranging chars from 'a' to 'z'
    *
    */
-  // @Example
+  // @Property( tries = 5)
   boolean checkGenPrimitiveString() {
     Arbitrary<LiteralExpr> s = mBase.genPrimitiveString();
 
@@ -246,7 +256,7 @@ public class MainTests {
    * from `JRGCore.java` using the given type "int" as a parameter
    *
    */
-  // @Example
+  @Example
   boolean checkGenCandidatesMethods() throws ClassNotFoundException {
     JRGLog.showMessage(
       Severity.MSG_XDEBUG,
@@ -273,19 +283,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenCandidatesFields() throws ClassNotFoundException {
-    JRGLog.showMessage(
-      Severity.MSG_XDEBUG,
-      "checkGenCandidatesFields" + "::inicio"
-    );
+    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenCandidatesFields:" + ":inicio");
 
     Arbitrary<Field> b = mCore.genCandidatesField("int");
 
     System.out.println("Candidatos Fields: " + b.sample());
 
-    JRGLog.showMessage(
-      Severity.MSG_XDEBUG,
-      "checkGenCandidatesFields:" + ":fim"
-    );
+    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenCandidatesFields:" + ":fim");
 
     return true;
   }
@@ -296,15 +300,31 @@ public class MainTests {
    * from `JRGCore.java` using the given type class as a parameter
    *
    */
-  // @Example
+  // @Property(tries = 5)
   boolean checkGenCandidatesConstructors() throws ClassNotFoundException {
     JRGLog.showMessage(
       Severity.MSG_XDEBUG,
       "checkGenCandidatesConstructors" + "::inicio"
     );
 
+    /*
+     *
+     * `mCore.genCandidatesConstructors` needs a type parameter to search
+     *
+     */
+
+    /*
+     * ANTES -> searchs for a specific import file
+     */
+    // Arbitrary<Constructor> b = mCore.genCandidatesConstructors(
+    //   "br.edu." + "ifsc.javargexamples.B"
+    // );
+
+    /*
+     * DEPOIS -> searchs for the first item in the list of imports
+     */
     Arbitrary<Constructor> b = mCore.genCandidatesConstructors(
-      "br.edu." + "ifsc.javargexamples.B"
+      loadImports().iterator().next()
     );
 
     System.out.println("Candidatos Constructors: " + b.sample());
@@ -425,11 +445,9 @@ public class MainTests {
       "br.edu.ifsc." + "javargexamples.AextendExtend"
     );
 
-    b.forEach(
-      i -> {
-        System.out.println("SuperTypes: " + i);
-      }
-    );
+    b.forEach(i -> {
+      System.out.println("SuperTypes: " + i);
+    });
 
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkSuperTypes" + "::final");
 
@@ -448,11 +466,9 @@ public class MainTests {
 
     List<Class> b = mCT.subTypes("br.edu.ifsc." + "javargexamples.A");
 
-    b.forEach(
-      i -> {
-        System.out.println("subTypes: " + i.toString());
-      }
-    );
+    b.forEach(i -> {
+      System.out.println("subTypes: " + i.toString());
+    });
 
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::final");
 
@@ -473,11 +489,9 @@ public class MainTests {
 
     List<Class> b = mCT.subTypes2("br.edu.ifsc." + "javargexamples.A");
 
-    b.forEach(
-      i -> {
-        System.out.println("subTypes: " + i.toString());
-      }
-    );
+    b.forEach(i -> {
+      System.out.println("subTypes: " + i.toString());
+    });
 
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::final");
 
@@ -717,7 +731,7 @@ public class MainTests {
     return true;
   }
 
-    /*
+  /*
    *
    * Generate a Arithmetic Expressions from `JRGOperator.java`
    * Using %, ==, +, -, * between two or more statements for example
@@ -741,9 +755,9 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * Generate statements in a array format from `JRGStmt.java`
-   * 
+   *
    */
   // @Example
   boolean checkGenStatementList() {
@@ -759,10 +773,10 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * Generate statements for variable declaration
    * From `JRGStmt.java`
-   * 
+   *
    */
   // @Property(tries = 10)
   boolean checkGenVarDeclarationStmt() throws ClassNotFoundException {
@@ -781,9 +795,9 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * !ERROR - empty set of values
-   * 
+   *
    */
   // @Example
   boolean checkGenVarAssingStmt() throws ClassNotFoundException {
@@ -799,11 +813,11 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * Generate Lambda expressions from `JRGCore.java`
-   * 
+   *
    */
-  @Example
+  // @Example
   // @Property(tries = 1)
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
@@ -824,11 +838,9 @@ public class MainTests {
         case 2:
           ret = ret.concat("= () ->");
           break;
-        
         default:
           ret = ret.concat(" " + expr.split(" ")[i]);
           break;
-
       }
     }
     ret = ret.concat(";");
@@ -841,9 +853,9 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * !ERROR - empty set of values
-   * 
+   *
    */
   // @Example
   boolean checkGenTypeAssingStmt() throws ClassNotFoundException {
@@ -859,10 +871,10 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * Generate For Loopings expressions with statements within
    * the loop using `JRGStmt.java`
-   * 
+   *
    */
   // @Example
   // @Property(tries=4)
@@ -879,9 +891,9 @@ public class MainTests {
   }
 
   /*
-   * 
+   *
    * !IDK = Generate a selection of variable declarations and assignments
-   * 
+   *
    */
   // @Example
   boolean checkGenList() throws ClassNotFoundException {

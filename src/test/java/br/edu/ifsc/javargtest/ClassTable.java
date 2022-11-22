@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsc.javargtest;
 
 import java.lang.reflect.*;
@@ -29,7 +24,6 @@ public class ClassTable {
     for (String s : mImports) {
       list.add(Class.forName(s).getName());
     }
-
     return list;
   }
 
