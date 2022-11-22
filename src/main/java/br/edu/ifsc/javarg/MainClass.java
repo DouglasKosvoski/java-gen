@@ -1,6 +1,7 @@
 package br.edu.ifsc.javarg;
 
 import br.edu.ifsc.javargexamples.G;
+import br.edu.ifsc.javargexamples.A;
 
 /**
  *

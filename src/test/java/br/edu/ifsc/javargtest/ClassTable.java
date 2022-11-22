@@ -1,5 +1,7 @@
 package br.edu.ifsc.javargtest;
 
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,16 +30,16 @@ public class ClassTable {
   }
 
   public List<Field> getCandidateFields(String type)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Field> candidates = new ArrayList<>();
 
     for (String c : mImports) {
       List<Field> flds = getClassFields(c);
 
       List<Field> collect = flds
-        .stream()
-        .filter(f -> f.getType().toString().equals(type))
-        .collect(Collectors.toList());
+          .stream()
+          .filter(f -> f.getType().toString().equals(type))
+          .collect(Collectors.toList());
 
       candidates.addAll(collect);
     }
@@ -45,17 +47,30 @@ public class ClassTable {
     return candidates;
   }
 
+  public List<String> getCandidateInterfaces(String type)
+      throws ClassNotFoundException {
+    List<String> candidates = new ArrayList<>();
+
+    for (String c : mImports) {
+      String interfaces = getClassInterfaces(c);
+      if (!interfaces.isEmpty()) {
+        candidates.add(interfaces);
+      }
+    }
+    return candidates;
+  }
+
   public List<Method> getCandidateMethods(String type)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Method> candidatesMethod = new ArrayList<>();
 
     for (String c : mImports) {
       List<Method> mthd = getClassMethods(c);
 
       List<Method> collect = mthd
-        .stream()
-        .filter(m -> m.getReturnType().toString().equals(type))
-        .collect(Collectors.toList());
+          .stream()
+          .filter(m -> m.getReturnType().toString().equals(type))
+          .collect(Collectors.toList());
 
       candidatesMethod.addAll(collect);
     }
@@ -64,7 +79,7 @@ public class ClassTable {
   }
 
   public List<Constructor> getCandidateConstructors(String type)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Constructor> candidatesConstructor = new ArrayList<>();
 
     List<Constructor> cntc = getClassConstructors(type);
@@ -75,7 +90,7 @@ public class ClassTable {
   }
 
   public List<Field> getClassFields(String cname)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Field> list = new ArrayList<>();
 
     Class c = Class.forName(cname);
@@ -88,17 +103,17 @@ public class ClassTable {
   }
 
   public List<String> getClassFieldTypes(String cname)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<String> list = getClassFields(cname)
-      .stream()
-      .map(f -> f.getGenericType().getTypeName())
-      .collect(Collectors.toList());
+        .stream()
+        .map(f -> f.getGenericType().getTypeName())
+        .collect(Collectors.toList());
 
     return list;
   }
 
   public List<Method> getClassMethods(String cname)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Method> list = new ArrayList<>();
 
     Class c = Class.forName(cname);
@@ -111,7 +126,7 @@ public class ClassTable {
   }
 
   public List<Constructor> getClassConstructors(String cname)
-    throws ClassNotFoundException {
+      throws ClassNotFoundException {
     List<Constructor> list = new ArrayList<>();
 
     Class c = Class.forName(cname);
@@ -121,6 +136,36 @@ public class ClassTable {
     list.addAll(Arrays.asList(ct));
 
     return list;
+  }
+
+  public String getClassInterfaces(String cname)
+      throws ClassNotFoundException {
+    String interfaces = Arrays.toString(Class.forName(cname).getInterfaces());
+    interfaces = interfaces.replace("[", "");
+    interfaces = interfaces.replace("]", "");
+    
+    return interfaces;
+
+    // System.out.println("cname -> " + cname.toString());
+    // System.out.println("cname -> " + cname.toString());
+    // System.out.println("field list -> " + list.toString());
+    // System.out.println("class name -> " + c.toString());
+    // System.out.println("class name is interface -> " + c.isInterface());
+    // System.out.println("class name get interface -> " + c.getInterfaces());
+
+    // Class<?> teste = Class.forName(cname);
+    // Class<?>[] inters = teste.getInterfaces();
+    // AnnotatedType[] testeMods = teste.getAnnotatedInterfaces();
+
+    // Type[] testeMods2 = teste.getGenericInterfaces();
+    // int modifiers = teste.getModifiers();
+
+    // System.out.println("inters -> " + inters);
+    // System.out.println("inters STR-> " + inters.toString());
+    // System.out.println("testeMods -> " + testeMods.toString());
+    // System.out.println("testeModsCC -> " + testeMods.getClass());
+    // System.out.println("testeMods2 -> " + testeMods2.toString());
+    // System.out.println("modifiers -> " + modifiers);
   }
 
   public List<Class> superTypes(String cname) throws ClassNotFoundException {

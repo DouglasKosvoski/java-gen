@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: MainTests
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.404 s <<< FAILURE! - in MainTests
-checkGenCandidatesMethods  Time elapsed: 0.111 s  <<< ERROR!
-net.jqwik.api.JqwikException: empty set of values
-	at br.edu.ifsc.javargtest.MainTests.checkGenCandidatesMethods(MainTests.java:268)
-
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.339 s - in MainTests

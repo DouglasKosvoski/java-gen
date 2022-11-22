@@ -1,7 +1,8 @@
 br/edu/ifsc/javargexamples/A.class
 br/edu/ifsc/javarg/MainClass.class
-br/edu/ifsc/javarg/FI.class
+br/edu/ifsc/javargexamples/G.class
 br/edu/ifsc/javargexamples/C.class
 br/edu/ifsc/javargexamples/AextendExtend.class
 br/edu/ifsc/javargexamples/Aextend.class
+br/edu/ifsc/javargexamples/GenericFunctionalInterface.class
 br/edu/ifsc/javargexamples/B.class

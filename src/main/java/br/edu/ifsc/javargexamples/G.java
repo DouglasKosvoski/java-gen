@@ -1,15 +1,15 @@
 package br.edu.ifsc.javargexamples;
-
+import java.util.function.Supplier;
 /**
  *
  * @author douglas
  *
  */
 
-@FunctionalInterface
-interface GenericFunctionalInterface<t> {
-  t func();
-}
+// // @FunctionalInterface
+// interface GenericFunctionalInterface<t> {
+//   t func();
+// }
 
 /**
  *
@@ -17,7 +17,8 @@ interface GenericFunctionalInterface<t> {
  *
  */
 
-public class G<T> {
+public class G<T> implements Supplier {
+// public class G<T> implements GenericFunctionalInterface {
 
   int a;
   boolean b;
@@ -37,6 +38,12 @@ public class G<T> {
   public int teste() {
     return 1;
   }
+
+  // @Override
+  // public Object func() {
+  //   // TODO Auto-generated method stub
+  //   return null;
+  // }
 }
 
 // GFI<String> a = () -> "hello";

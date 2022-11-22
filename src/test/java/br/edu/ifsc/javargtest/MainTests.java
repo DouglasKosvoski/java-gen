@@ -16,6 +16,7 @@ import com.github.javaparser.ast.type.*;
 import com.github.javaparser.printer.DotPrinter;
 import com.github.javaparser.printer.PrettyPrinter;
 import java.io.*;
+// import java.lang.reflect.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -137,7 +138,7 @@ public class MainTests {
    *                                *
    **********************************/
 
-  @Example
+  // @Example
   boolean teste_vazio() {
     return true;
   }
@@ -256,7 +257,7 @@ public class MainTests {
    * from `JRGCore.java` using the given type "int" as a parameter
    *
    */
-  @Example
+  // @Example
   boolean checkGenCandidatesMethods() throws ClassNotFoundException {
     JRGLog.showMessage(
       Severity.MSG_XDEBUG,
@@ -332,6 +333,30 @@ public class MainTests {
     JRGLog.showMessage(
       Severity.MSG_XDEBUG,
       "checkGenCandidatesConstructors" + "::fim"
+    );
+
+    return true;
+  }
+  
+  // @Example
+  @Property(tries = 5)
+  boolean checkGenCandidatesInterfaces() throws ClassNotFoundException {
+    
+    JRGLog.showMessage(
+      Severity.MSG_XDEBUG,
+      "checkGenCandidatesInterfaces" + "::inicio"
+    );
+
+    List<String> candidates = mCT.getCandidateInterfaces(
+      loadImports().iterator().next()
+    );
+
+
+    System.out.println("Candidatos Interfaces: " + candidates.toString());
+
+    JRGLog.showMessage(
+      Severity.MSG_XDEBUG,
+      "checkGenCandidatesInterfaces" + "::fim"
     );
 
     return true;
@@ -817,7 +842,7 @@ public class MainTests {
    * Generate Lambda expressions from `JRGCore.java`
    *
    */
-  // @Example
+  @Example
   // @Property(tries = 1)
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
@@ -826,7 +851,11 @@ public class MainTests {
 
     String expr = e.sample().toString();
 
-    String ret = "GFI";
+    List<String> asd = mCT.getCandidateInterfaces(
+        loadImports().iterator().next());
+
+    String ret = asd.toString().replace("[", "").replace("]", "");
+
     for (int i = 0; i < expr.split(" ").length; i++) {
       switch (i) {
         case 0:
