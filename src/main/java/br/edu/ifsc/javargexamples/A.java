@@ -21,7 +21,7 @@ public class A {
     this.a3 = a3;
   }
 
-  public void setA1(int a1) {
+  public void setA1(int a1, boolean a3) {
     this.a1 = a1;
   }
 

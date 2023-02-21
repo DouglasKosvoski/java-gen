@@ -1,8 +1,9 @@
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGBase.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGCore.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGLog.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/ReflectParserTranslator.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/MainTests.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGStmt.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGOperator.java
-/home/attory/Documents/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/ClassTable.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGStmt.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/ReflectParserTranslator.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/ClassTable.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGOperator.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGLog.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGBase.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/JRGCore.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/InterfaceTable.java
+/home/attory/Github/java-gen/src/test/java/br/edu/ifsc/javargtest/MainTests.java

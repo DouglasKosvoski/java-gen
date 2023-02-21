@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"br.edu.ifsc.javarg"},{"l":"br.edu.ifsc.javargexamples"}]
