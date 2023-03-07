@@ -3,11 +3,11 @@ package br.edu.ifsc.javargtest;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.*;
-import java.util.List;
-
-// import java.util.ArrayList;
+import java.util.ArrayList;
 // import java.util.Arrays;
 // import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -77,7 +77,35 @@ public class InterfaceTable {
       if (i == 0) {
         System.out.println("No methods found");
       }
-      System.out.println("-------------------------------------------------------\n");
+      System.out.println(
+        "-------------------------------------------------------\n"
+      );
     }
+  }
+
+  public List<String> getCandidateInterfaces(String type)
+    throws ClassNotFoundException {
+      List<String> candidates = new ArrayList<>();
+      
+    System.out.println(type);
+
+    for (String c : mImports) {
+
+      String interfaces = getClassInterfaces(c);
+      
+      if (!interfaces.isEmpty()) {
+        candidates.add(interfaces);
+      }
+    }
+    return candidates;
+  }
+
+  public String getClassInterfaces(String cname) throws ClassNotFoundException {
+    String interfaces = Arrays.toString(Class.forName(cname).getInterfaces());
+
+    interfaces = interfaces.replace("[", "");
+    interfaces = interfaces.replace("]", "");
+
+    return interfaces;
   }
 }

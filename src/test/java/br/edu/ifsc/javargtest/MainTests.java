@@ -139,16 +139,6 @@ public class MainTests {
    * @throws ClassNotFoundException
    **********************************/
 
-  @Example
-  boolean checkInterfaceTable() throws ClassNotFoundException {
-    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::inicio");
-    // mIT.get_methods();
-    // mIT.get_methods_info();
-    // mIT.show_imports();
-    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::fim");
-    return true;
-  }
-
   /*
    *
    * Generate a random primitive type all available primitive
@@ -815,15 +805,73 @@ public class MainTests {
    *
    */
   // @Example
-  // @Property(tries = 10)
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
 
     Arbitrary<LambdaExpr> e = mCore.genLambdaExpr(mCtx);
+    String expr = e.sample().toString();
 
-    System.out.println("checkGenLambdaExpr: " + e.sample());
+    List<String> asd = mIT.getCandidateInterfaces(
+      loadImports().iterator().next()
+    );
 
+    // System.out.println(expr.toString());
+    // for (String a : asd) {
+    //   System.out.println(a);
+    // }
+
+    String ret = asd.toString().replace("[", "").replace("]", "");
+
+    for (int i = 0; i < expr.split(" ").length; i++) {
+      switch (i) {
+        case 0:
+          ret = ret.concat("<" + expr.split(" ")[i] + ">");
+          break;
+        case 1:
+          ret = ret.concat(" " + expr.split(" ")[i] + " ");
+          break;
+        case 2:
+          ret = ret.concat("= () ->");
+          break;
+        default:
+          ret = ret.concat(" " + expr.split(" ")[i]);
+          break;
+      }
+    }
+    ret = ret.concat(";");
+    // System.out.println("antigo == checkGenLambdaExpr: " + expr);
+    System.out.println("checkGenLambdaExpr: " + ret);
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::fim");
+    return true;
+  }
+
+  @Example
+  boolean checkInterfaceTable() throws ClassNotFoundException {
+    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::inicio");
+    mIT.get_methods();
+    mIT.get_methods_info();
+    mIT.show_imports();
+    JRGLog.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::fim");
+    return true;
+  }
+
+  @Property(tries = 1)
+  boolean checkGenCandidatesInterfaces() throws ClassNotFoundException {
+    JRGLog.showMessage(
+      Severity.MSG_XDEBUG,
+      "checkGenCandidatesInterfaces" + "::inicio"
+    );
+
+    List<String> candidates = mIT.getCandidateInterfaces(
+      loadImports().iterator().next()
+    );
+
+    System.out.println("Candidatos Interfaces: " + candidates.toString());
+
+    JRGLog.showMessage(
+      Severity.MSG_XDEBUG,
+      "checkGenCandidatesInterfaces" + "::fim"
+    );
 
     return true;
   }

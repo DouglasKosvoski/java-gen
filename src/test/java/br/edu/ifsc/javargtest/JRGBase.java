@@ -5,7 +5,7 @@
  */
 package br.edu.ifsc.javargtest;
 
-import static com.sun.jmx.mbeanserver.Util.cast;
+// import static com.sun.jmx.mbeanserver.Util.cast;
 
 import com.github.javaparser.ast.expr.BooleanLiteralExpr;
 import com.github.javaparser.ast.expr.CharLiteralExpr;
