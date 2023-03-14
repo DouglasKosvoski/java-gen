@@ -23,6 +23,7 @@ public class InterfaceTable {
   }
 
   public void show_imports() {
+    System.out.println("Printing imports:");
     for (String imp : mImports) {
       System.out.println(imp);
     }
@@ -68,7 +69,7 @@ public class InterfaceTable {
 
         // Class<?> evec[] = m.getExceptionTypes();
         // for (j = 0; j < evec.length; j++) {
-        //   System.out.println("exception_types #" + j + " " + evec[j]);
+        // System.out.println("exception_types #" + j + " " + evec[j]);
         // }
 
         System.out.println("return_type -> " + m.getReturnType());
@@ -78,21 +79,17 @@ public class InterfaceTable {
         System.out.println("No methods found");
       }
       System.out.println(
-        "-------------------------------------------------------\n"
-      );
+          "-------------------------------------------------------\n");
     }
   }
 
   public List<String> getCandidateInterfaces(String type)
-    throws ClassNotFoundException {
-      List<String> candidates = new ArrayList<>();
-      
-    System.out.println(type);
-
+      throws ClassNotFoundException {
+    List<String> candidates = new ArrayList<>();
+    
     for (String c : mImports) {
-
       String interfaces = getClassInterfaces(c);
-      
+
       if (!interfaces.isEmpty()) {
         candidates.add(interfaces);
       }

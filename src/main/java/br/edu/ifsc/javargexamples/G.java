@@ -1,7 +1,5 @@
 package br.edu.ifsc.javargexamples;
 
-// import java.util.function.Supplier;
-
 /**
  *
  * @author douglas
@@ -10,12 +8,12 @@ package br.edu.ifsc.javargexamples;
 
 public class G<T> {
 
-  int a;
-  boolean b;
-  Double c;
+  public int a;
+  public boolean b;
+  public Double c;
 
   // T stands for "Type"
-  private T t;
+  public T t;
 
   public void set(T t) {
     this.t = t;
@@ -31,7 +29,7 @@ public class G<T> {
 }
 
 
-// INTERFACE<String> a = () -> "hello";
+// <String> a = () -> "hello";
 // INTERFACE<Integer> b = () -> 1 + 3 * 472;
 // INTERFACE<Double> c = () -> 3 + 0.14159;
 // INTERFACE<Byte> e = () -> 41;

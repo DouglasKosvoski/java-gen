@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="MainTests" time="0.322" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="MainTests" time="0.345" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/attory/Github/java-gen/target/surefire/surefirebooter16434463514443849614.jar /home/attory/Github/java-gen/target/surefire 2023-03-06T23-11-29_329-jvmRun1 surefire13424613226936528495tmp surefire_017711542428854485186tmp"/>
+    <property name="sun.java.command" value="/home/attory/Github/java-gen/target/surefire/surefirebooter3228165428135143755.jar /home/attory/Github/java-gen/target/surefire 2023-03-14T16-31-17_635-jvmRun1 surefire12029603341216539050tmp surefire_016194226618812293278tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="br.edu.ifsc.javargtest.MainTests"/>
     <property name="surefire.test.class.path" value="/home/attory/Github/java-gen/target/test-classes:/home/attory/Github/java-gen/target/classes:/home/attory/.m2/repository/com/github/javaparser/javaparser-symbol-solver-core/3.25.1/javaparser-symbol-solver-core-3.25.1.jar:/home/attory/.m2/repository/com/github/javaparser/javaparser-core/3.25.1/javaparser-core-3.25.1.jar:/home/attory/.m2/repository/org/javassist/javassist/3.29.2-GA/javassist-3.29.2-GA.jar:/home/attory/.m2/repository/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar:/home/attory/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/attory/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/attory/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/attory/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar:/home/attory/.m2/repository/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar:/home/attory/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/attory/.m2/repository/net/jqwik/jqwik/1.3.5/jqwik-1.3.5.jar:/home/attory/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/home/attory/.m2/repository/net/jqwik/jqwik-api/1.3.5/jqwik-api-1.3.5.jar:/home/attory/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-commons/1.6.2/junit-platform-commons-1.6.2.jar:/home/attory/.m2/repository/net/jqwik/jqwik-engine/1.3.5/jqwik-engine-1.3.5.jar:/home/attory/.m2/repository/org/junit/platform/junit-platform-engine/1.6.2/junit-platform-engine-1.6.2.jar:/home/attory/.m2/repository/org/assertj/assertj-core/3.17.2/assertj-core-3.17.2.jar:/home/attory/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/attory/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/attory/Github/java-gen/target/surefire/surefirebooter16434463514443849614.jar"/>
+    <property name="surefire.real.class.path" value="/home/attory/Github/java-gen/target/surefire/surefirebooter3228165428135143755.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.18+10-post-Debian-1deb11u1"/>
     <property name="user.name" value="attory"/>
@@ -59,6 +59,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="checkGenCandidatesInterfaces" classname="br.edu.ifsc.javargtest.MainTests" time="0.067"/>
-  <testcase name="checkInterfaceTable" classname="br.edu.ifsc.javargtest.MainTests" time="0.006"/>
+  <testcase name="checkGenCandidatesInterfaces" classname="br.edu.ifsc.javargtest.MainTests" time="0.075"/>
 </testsuite>
