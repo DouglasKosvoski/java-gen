@@ -9,6 +9,7 @@ import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -30,18 +31,20 @@ public class ClassTable {
     for (String s : mImports) {
       list.add(Class.forName(s).getName());
     }
+
     System.out.println("DEBUG: ClassTable (getTypes) -> " + list.toString());
-    
+
     return list;
   }
 
-  public List<Class> getClassTypes() throws ClassNotFoundException {
-    List<Class> list = new ArrayList<>();
+  public List<Class<?>> getClassTypes() throws ClassNotFoundException {
+    List<Class<?>> list = new ArrayList<>();
 
     for (String s : mImports) {
-      Class t = Class.forName(s);
+      Class<?> t = Class.forName(s);
       list.add(t);
     }
+
     System.out.println("DEBUG: ClassTable (getTypes) -> " + list.toString());
 
     return list;
@@ -54,6 +57,8 @@ public class ClassTable {
     for (String c : mImports) {
       List<Field> flds = getClassFields(c);
 
+      // System.out.println("DEBUG: ClassTable (getCandidateFields) `List<Field>`-> " + flds);
+
       List<Field> collect = flds
         .stream()
         .filter(f -> f.getType().toString().equals(type))
@@ -61,8 +66,11 @@ public class ClassTable {
 
       candidates.addAll(collect);
     }
-    
-    System.out.println("DEBUG: ClassTable (getCandidateFields) -> " + candidates.toString());
+
+    System.out.println(
+      "DEBUG: ClassTable (getCandidateFields) -> " + candidates.toString()
+    );
+
     return candidates;
   }
 
@@ -72,16 +80,20 @@ public class ClassTable {
 
     for (String c : mImports) {
       List<Method> mthd = getClassMethods(c);
-      
+
       List<Method> collect = mthd
         .stream()
         .filter(m -> m.getReturnType().toString().equals(type))
         .collect(Collectors.toList());
-        
-        candidatesMethod.addAll(collect);
-      }
-      
-    System.out.println("DEBUG: ClassTable (getCandidateMethods) -> " + candidatesMethod.toString());
+
+      candidatesMethod.addAll(collect);
+    }
+
+    System.out.println(
+      "DEBUG: ClassTable (getCandidateMethods) -> " +
+      candidatesMethod.toString()
+    );
+
     return candidatesMethod;
   }
 
@@ -92,21 +104,57 @@ public class ClassTable {
     List<Constructor> cntc = getClassConstructors(type);
 
     candidatesConstructor.addAll(cntc);
-    System.out.println("DEBUG: ClassTable (getCandidateConstructors) -> " + candidatesConstructor.toString());
+    System.out.println(
+      "DEBUG: ClassTable (getCandidateConstructors) -> " +
+      candidatesConstructor.toString()
+    );
     return candidatesConstructor;
   }
 
   public List<Field> getClassFields(String cname)
-    throws ClassNotFoundException {
+    throws ClassNotFoundException, NoSuchFieldException, SecurityException {
     List<Field> list = new ArrayList<>();
+    
+    Class<?> cls = Class.forName(cname);
+    Field f[] = cls.getFields();
 
-    Class c = Class.forName(cname);
+    // Field field = .getDeclaredField("a");
+    System.out.println(cls.getClassLoader().toString());
+    // List<String> asd = new ArrayList<>();
+    // asd.add(field.toGenericString());
 
-    Field f[] = c.getFields();
+    // System.out.println("==============================");
+    
+    // for (Field field : f) {
+    //   // String declaring_class = field.getDeclaringClass().getName();
+      
+    //   try {
+    //     Field ff = cls.getDeclaredField(field.getName());
+    //     Type field_type = ff.getGenericType();
+
+    //     String field_type2 = ff.getType().toGenericString();
+
+    //     System.out.println("XXXXX: " + field_type);
+    //     System.out.println("XXXXX: " + field_type2);
+        
+    //     if (field_type2 instanceof String) {
+    //       System.out.println("É String");
+    //     } else {
+    //       System.out.println("Não é String");
+    //     }
+
+    //   } catch (NoSuchFieldException | SecurityException e) {
+    //     e.printStackTrace();
+    //   }
+    // }
 
     list.addAll(Arrays.asList(f));
-    
-    System.out.println("DEBUG: ClassTable (getClassFields) -> " + list.toString());
+
+    System.out.println(
+      "DEBUG: ClassTable (getClassFields) -> " + list.toString()
+    );
+
+    System.out.println("==============================");
     return list;
   }
 
@@ -116,22 +164,27 @@ public class ClassTable {
       .stream()
       .map(f -> f.getGenericType().getTypeName())
       .collect(Collectors.toList());
-      
-    System.out.println("DEBUG: ClassTable (getClassFieldTypes) -> " + list.toString());
+
+    System.out.println(
+      "DEBUG: ClassTable (getClassFieldTypes) -> " + list.toString()
+    );
+
     return list;
   }
-  
+
   public List<Method> getClassMethods(String cname)
     throws ClassNotFoundException {
     List<Method> list = new ArrayList<>();
-    
+
     Class c = Class.forName(cname);
 
     Method m[] = c.getDeclaredMethods();
-    
+
     list.addAll(Arrays.asList(m));
-    
-    System.out.println("DEBUG: ClassTable (getClassMethods) -> " + list.toString());
+
+    System.out.println(
+      "DEBUG: ClassTable (getClassMethods) -> " + list.toString()
+    );
     return list;
   }
 
@@ -140,18 +193,20 @@ public class ClassTable {
     List<Constructor> list = new ArrayList<>();
 
     Class c = Class.forName(cname);
-    
+
     Constructor ct[] = c.getDeclaredConstructors();
 
     list.addAll(Arrays.asList(ct));
-    
-    System.out.println("DEBUG: ClassTable (getClassConstructors) -> " + list.toString());
+
+    System.out.println(
+      "DEBUG: ClassTable (getClassConstructors) -> " + list.toString()
+    );
     return list;
   }
 
   public List<Class> superTypes(String cname) throws ClassNotFoundException {
     List<Class> list = new ArrayList<>();
-    
+
     Class c = Class.forName(cname);
 
     Class st = c.getSuperclass();
@@ -161,7 +216,7 @@ public class ClassTable {
       c = st;
       st = c.getSuperclass();
     }
-    
+
     System.out.println("DEBUG: ClassTable (superTypes) -> " + list.toString());
     return list;
   }
@@ -177,13 +232,13 @@ public class ClassTable {
     System.out.println(cname);
 
     Class c = Class.forName(cname);
-    
+
     list.add(c);
-    
+
     if (!cname.equals("java.lang.Object")) {
       list.addAll(subTypes(c.getSuperclass().getName()));
     }
-    
+
     System.out.println("DEBUG: ClassTable (subTypes) -> " + list.toString());
     return list;
   }
@@ -206,7 +261,7 @@ public class ClassTable {
         list.add(cla);
       }
     }
-    
+
     System.out.println("DEBUG: ClassTable (subTypes2) -> " + list.toString());
     return list;
   }

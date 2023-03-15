@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: MainTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.345 s - in MainTests
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.362 s <<< FAILURE! - in MainTests
+checkGenVarDeclarationStmt  Time elapsed: 0.118 s  <<< ERROR!
+java.lang.RuntimeException: Uncompilable code - unreported exception java.lang.NoSuchFieldException; must be caught or declared to be thrown
+	at br.edu.ifsc.javargtest.MainTests.checkGenVarDeclarationStmt(MainTests.java:745)
+

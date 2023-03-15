@@ -8,12 +8,13 @@ package br.edu.ifsc.javargexamples;
 
 public class G<T> {
 
-  public int a;
-  public boolean b;
-  public Double c;
-
   // T stands for "Type"
   public T t;
+
+  public int a;
+  // public boolean b;
+  // public Double c;
+
 
   public void set(T t) {
     this.t = t;
@@ -27,16 +28,3 @@ public class G<T> {
     return 1;
   }
 }
-
-
-// <String> a = () -> "hello";
-// INTERFACE<Integer> b = () -> 1 + 3 * 472;
-// INTERFACE<Double> c = () -> 3 + 0.14159;
-// INTERFACE<Byte> e = () -> 41;
-// INTERFACE<Boolean> j = () -> new br.edu.ifsc.javargexamples.A(2, 180, true).a3;
-// INTERFACE<br.edu.ifsc.javargexamples.C> f = ()-> new br.edu.ifsc.javargexamples.C();
-// INTERFACE<br.edu.ifsc.javargexamples.C> g = () -> new br.edu.ifsc.javargexamples.C();
-// INTERFACE<br.edu.ifsc.javargexamples.C> h = () -> new br.edu.ifsc.javargexamples.C();
-// INTERFACE<br.edu.ifsc.javargexamples.C> k = () -> new br.edu.ifsc.javargexamples.C();
-// INTERFACE<br.edu.ifsc.javargexamples.AextendExtend> i = () -> new br.edu.ifsc.javargexamples.AextendExtend(new br.edu.ifsc.javargexamples.A(5389, -9740, false).getA1(), 2);
-// INTERFACE<br.edu.ifsc.javargexamples.C> c = () -> new br.edu.ifsc.javargexamples.C();

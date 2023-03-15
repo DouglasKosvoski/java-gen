@@ -513,7 +513,7 @@ public class MainTests {
 
     m.setBody(e.sample());
 
-    imprimiDados(mSkeleton);
+    imprimirDados(mSkeleton);
 
     compila("MainClass.java");
 
@@ -736,7 +736,7 @@ public class MainTests {
    * From `JRGStmt.java`
    *
    */
-  // @Property(tries = 10)
+  @Property(tries = 1)
   boolean checkGenVarDeclarationStmt() throws ClassNotFoundException {
     JRGLog.showMessage(
         Severity.MSG_XDEBUG,
@@ -830,7 +830,7 @@ public class MainTests {
    * Generate Lambda expressions from `JRGCore.java`
    *
    */
-  //@Example
+  // @Example
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     JRGLog.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
 
@@ -880,7 +880,7 @@ public class MainTests {
     return true;
   }
 
-  @Property(tries = 1)
+  // @Property(tries = 1)
   boolean checkGenCandidatesInterfaces() throws ClassNotFoundException {
     JRGLog.showMessage(
         Severity.MSG_XDEBUG,
