@@ -19,16 +19,16 @@ import net.jqwik.api.Provide;
  * 
  */
 public class JRGOperator {
-  private ClassTable mCT;
+  private ClassManager classManager;
 
-  private JRGBase mBase;
+  private TypeGenerator typeGenerator;
 
   private JRGCore mCore;
 
-  public JRGOperator(ClassTable ct, JRGBase base, JRGCore core) {
-    mCT = ct;
+  public JRGOperator(ClassManager ct, TypeGenerator typeGenerator, JRGCore core) {
+    classManager = ct;
 
-    mBase = base;
+    this.typeGenerator = typeGenerator;
 
     mCore = core;
   }
@@ -59,12 +59,12 @@ public class JRGOperator {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.reflectToParserType(t.toString())
     );
 
     Arbitrary<Expression> ex = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.reflectToParserType(t.toString())
     );
 
     return e.map(
@@ -78,12 +78,12 @@ public class JRGOperator {
     VariableDeclarator var,
     Arbitrary<LiteralExpr> ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = typeGenerator.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.reflectToParserType(tp)
     );
 
     return e.map(
@@ -102,12 +102,12 @@ public class JRGOperator {
     VariableDeclarator var,
     Arbitrary<LiteralExpr> ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = typeGenerator.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.reflectToParserType(tp)
     );
 
     return e.map(
@@ -122,18 +122,18 @@ public class JRGOperator {
 
   @Provide
   public Arbitrary<BinaryExpr> genRelaExpression(Map<String, String> ctx) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = typeGenerator.generateMathematicalPrimitiveTypes();
 
     String tp = t.sample().toString();
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.reflectToParserType(tp)
     );
 
     Arbitrary<Expression> ex = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.reflectToParserType(tp)
     );
 
     return e.map(
