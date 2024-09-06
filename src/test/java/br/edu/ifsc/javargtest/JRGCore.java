@@ -37,7 +37,7 @@ public class JRGCore {
 
   private ClassManager mCT;
 
-  private JRGBase mBase;
+  private TypeGenerator mBase;
 
   private JRGOperator mOperator;
 
@@ -47,7 +47,7 @@ public class JRGCore {
 
   int mFuel;
 
-  public JRGCore(ClassManager ct, JRGBase base) {
+  public JRGCore(ClassManager ct, TypeGenerator base) {
     mCT = ct;
 
     mBase = base;

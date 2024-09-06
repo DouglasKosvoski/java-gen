@@ -40,7 +40,7 @@ public class JRGStmt {
 
   private int mFuel;
 
-  private JRGBase mBase;
+  private TypeGenerator mBase;
 
   private List<String> mValidNames;
 
@@ -53,7 +53,7 @@ public class JRGStmt {
   public static final int IF_STMT = 1, FOR_STMT = 2, VAR_DECL_STMT =
     3, VAR_DECLARATION_STMT = 4;
 
-  public JRGStmt(ClassManager ct, JRGBase base, JRGCore core) {
+  public JRGStmt(ClassManager ct, TypeGenerator base, JRGCore core) {
     mCT = ct;
 
     mBase = base;

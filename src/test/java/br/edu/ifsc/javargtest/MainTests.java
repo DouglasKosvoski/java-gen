@@ -38,7 +38,7 @@ public class MainTests {
 
   private InterfaceTable mIT;
 
-  private JRGBase mBase;
+  private TypeGenerator mBase;
 
   private JRGCore mCore;
 
@@ -65,7 +65,7 @@ public class MainTests {
 
     mIT = new InterfaceTable(imp);
 
-    mBase = new JRGBase(mCT);
+    mBase = new TypeGenerator(mCT);
 
     mCore = new JRGCore(mCT, mBase);
 
@@ -140,7 +140,7 @@ public class MainTests {
   /*
    *
    * Generate a random primitive type all available primitive
-   * types can be found at JRGBase.java `primitiveTypes()` which
+   * types can be found at TypeGenerator.java `primitiveTypes()` which
    * then use 'net.jqwik.api.Arbitraries' to fetch all possible types
    *
    */

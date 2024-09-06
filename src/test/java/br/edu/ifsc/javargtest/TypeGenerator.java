@@ -28,10 +28,10 @@ import net.jqwik.api.Provide;
  * @author lukra
  * 
  */
-public class JRGBase {
+public class TypeGenerator {
   private ClassManager mCT;
 
-  public JRGBase(ClassManager ct) {
+  public TypeGenerator(ClassManager ct) {
     mCT = ct;
   }
 

@@ -21,11 +21,11 @@ import net.jqwik.api.Provide;
 public class JRGOperator {
   private ClassManager mCT;
 
-  private JRGBase mBase;
+  private TypeGenerator mBase;
 
   private JRGCore mCore;
 
-  public JRGOperator(ClassManager ct, JRGBase base, JRGCore core) {
+  public JRGOperator(ClassManager ct, TypeGenerator base, JRGCore core) {
     mCT = ct;
 
     mBase = base;
