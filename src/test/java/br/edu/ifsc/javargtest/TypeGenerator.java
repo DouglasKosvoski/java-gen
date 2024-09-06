@@ -92,7 +92,7 @@ public class TypeGenerator {
 
   @Provide
   public Arbitrary<LiteralExpr> genPrimitiveString() {
-    MessageLogger.showMessage(
+    MessageLogger.log(
       MessageLogger.Severity.TRACE,
       "genPrimitiveString::inicio"
     );

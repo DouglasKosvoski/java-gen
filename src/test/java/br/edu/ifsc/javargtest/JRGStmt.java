@@ -107,7 +107,7 @@ public class JRGStmt {
   @Provide
   public Arbitrary<VariableDeclarationExpr> genVarDecl(Map<String, String> ctx)
     throws ClassNotFoundException {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclaration::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclaration::inicio");
 
     Arbitrary<PrimitiveType> pt = mBase
       .primitiveTypes()
@@ -123,7 +123,7 @@ public class JRGStmt {
 
     mValidNames.remove(v);
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclaration::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclaration::fim");
 
     //return t.map(tp -> new VariableDeclarationExpr(tp, v));
     return Arbitraries.just(new VariableDeclarationExpr(tp, v));
@@ -131,7 +131,7 @@ public class JRGStmt {
 
   @Provide
   public Arbitrary<Statement> genStatement(Map<String, String> ctx) {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genStatement::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genStatement::inicio");
 
     try {
       if (mFuel > 0) {
@@ -168,7 +168,7 @@ public class JRGStmt {
       Logger.getLogger(JRGStmt.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genStatement::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genStatement::fim");
 
     return null;
   }
@@ -177,7 +177,7 @@ public class JRGStmt {
   public Arbitrary<NodeList<Statement>> genStatementList(
     Map<String, String> ctx
   ) {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genStatementList::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genStatementList::inicio");
 
     int n = Arbitraries.integers().between(1, MAX_STMT).sample();
     //List<Statement> exs =  new ArrayList<>();
@@ -187,20 +187,20 @@ public class JRGStmt {
       nodes.add(genStatement(ctx).sample());
     }
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genStatementList::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genStatementList::fim");
 
     return Arbitraries.just(nodes);
   }
 
   @Provide
   public Arbitrary<BlockStmt> genBlockStmt(Map<String, String> ctx) {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genBlockStmt::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genBlockStmt::inicio");
 
     Arbitrary<NodeList<Statement>> l = genStatementList(ctx);
 
     BlockStmt b = new BlockStmt(l.sample());
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genBlockStmt::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genBlockStmt::fim");
 
     return Arbitraries.just(b);
   }
@@ -211,7 +211,7 @@ public class JRGStmt {
     Map<String, String> ctx
   )
     throws ClassNotFoundException {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
     Arbitrary<PrimitiveType> pt = mBase
       .primitiveTypes()
       .map(t -> new PrimitiveType(t));
@@ -228,7 +228,7 @@ public class JRGStmt {
 
     mValidNames.remove(v);
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
 
     return e.map(
       obj -> new VariableDeclarationExpr(new VariableDeclarator(tp, v, obj))
@@ -272,7 +272,7 @@ public class JRGStmt {
 
   @Provide
   public Arbitrary<IfStmt> genIfStmt(Map<String, String> ctx) {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genIfStmt::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genIfStmt::inicio");
 
     Map<String, String> newCtxIf = new HashMap<String, String>(ctx);
     Map<String, String> newCtxElse = new HashMap<String, String>(ctx);
@@ -282,7 +282,7 @@ public class JRGStmt {
       PrimitiveType.booleanType()
     );
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genIfStmt::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genIfStmt::fim");
 
     return e.map(
       exp ->
@@ -296,7 +296,7 @@ public class JRGStmt {
 
   @Provide
   public Arbitrary<WhileStmt> genWhileStmt(Map<String, String> ctx) {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genWhileStmt::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genWhileStmt::inicio");
 
     Map<String, String> newCtx = new HashMap<String, String>(ctx);
 
@@ -305,7 +305,7 @@ public class JRGStmt {
       PrimitiveType.booleanType()
     );
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genWhileStmt::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genWhileStmt::fim");
     return e.map(
       exp ->
         new WhileStmt(
@@ -350,7 +350,7 @@ public class JRGStmt {
   //Arbitrary<ForStmt>
   public Arbitrary<ForStmt> genForStmt(Map<String, String> ctx)
     throws ClassNotFoundException {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genForStmt::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genForStmt::inicio");
 
     Arbitrary<VariableDeclarationExpr> variableD = genVarDeclAssignInt(ctx);
 
@@ -392,7 +392,7 @@ public class JRGStmt {
 
     NodeList<Expression> nodesAtu = new NodeList<>(atualiza.sample());
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genForStmt::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genForStmt::fim");
     return e.map(
       exp -> new ForStmt(nodes, compare.sample(), nodesAtu, a.sample())
     );
@@ -403,7 +403,7 @@ public class JRGStmt {
     Map<String, String> ctx
   )
     throws ClassNotFoundException {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
     Arbitrary<PrimitiveType> pt = mBase
       .primitiveTypesInt()
       .map(t -> new PrimitiveType(t));
@@ -425,7 +425,7 @@ public class JRGStmt {
 
     mValidNames.remove(v);
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
 
     return e.map(
       obj ->
@@ -438,7 +438,7 @@ public class JRGStmt {
   @Provide
   public List<Statement> genList(Map<String, String> ctx)
     throws ClassNotFoundException {
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
 
     List<Statement> a = new ArrayList<>();
 
@@ -451,7 +451,7 @@ public class JRGStmt {
       System.out.println("Posisão: " + a.get(i));
     }
 
-    MessageLogger.showMessage(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::fim");
 
     return a;
   }
