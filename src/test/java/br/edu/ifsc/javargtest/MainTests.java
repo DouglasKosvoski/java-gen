@@ -53,7 +53,7 @@ public class MainTests {
 
     dumpAST();
 
-    MessageLogger.logLevel = Severity.MSG_ERROR;
+    MessageLogger.logLevel = Severity.ERROR;
   }
 
   @BeforeTry
@@ -179,7 +179,7 @@ public class MainTests {
   // @Example
   boolean checkGenObjectCreation() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenObjectCreation" + "::inicio");
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
@@ -193,11 +193,11 @@ public class MainTests {
       System.out.println("ObjectCreation gerado: " + e.sample().toString());
     } else {
       MessageLogger.showMessage(
-          Severity.MSG_ERROR,
+          Severity.ERROR,
           "Não foi possível gerar " + "criação de objeto");
     }
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenObjectCreation::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenObjectCreation::fim");
 
     return true;
   }
@@ -210,7 +210,7 @@ public class MainTests {
   // @Property(tries = 10)
   boolean checkGenMethodInvokation() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenMethodInvokation" + "::inicio");
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
@@ -225,12 +225,12 @@ public class MainTests {
       System.out.println("Method gerado: " + e.sample().toString());
     } else {
       MessageLogger.showMessage(
-          Severity.MSG_ERROR,
+          Severity.ERROR,
           "Não foi possível gerar " + "criação do método");
     }
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenMethodInvokation" + "::fim");
 
     return true;
@@ -245,7 +245,7 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesMethods() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesMethods" + "::inicio");
 
     Arbitrary<Method> b = mCore.genCandidatesMethods("int");
@@ -253,7 +253,7 @@ public class MainTests {
     System.out.println("Candidatos Methods: " + b.sample());
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesMethods" + "::fim");
 
     return true;
@@ -268,7 +268,7 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesFields() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesFields" + "::inicio");
 
     Arbitrary<Field> b = mCore.genCandidatesField("int");
@@ -276,7 +276,7 @@ public class MainTests {
     System.out.println("Candidatos Fields: " + b.sample());
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesFields:" + ":fim");
 
     return true;
@@ -291,7 +291,7 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesConstructors() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesConstructors" + "::inicio");
 
     Arbitrary<Constructor> b = mCore.genCandidatesConstructors(
@@ -300,7 +300,7 @@ public class MainTests {
     System.out.println("Candidatos Constructors: " + b.sample());
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesConstructors" + "::fim");
 
     return true;
@@ -314,7 +314,7 @@ public class MainTests {
    */
   // @Property(tries = 10)
   boolean checkGenExpression() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenExpression::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenExpression::inicio");
 
     try {
       Arbitrary<Expression> e = mCore.genExpression(
@@ -326,7 +326,7 @@ public class MainTests {
       return false;
     }
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenExpression::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenExpression::fim");
 
     return true;
   }
@@ -340,7 +340,7 @@ public class MainTests {
   // @Example
   boolean checkGenAttributeAccess() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenAtributteAcess" + "::inicio");
 
     Arbitrary<FieldAccessExpr> e = mCore.genAttributeAccess(
@@ -349,7 +349,7 @@ public class MainTests {
 
     System.out.println("Acesso gerado: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenExpression::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenExpression::fim");
 
     return true;
   }
@@ -362,7 +362,7 @@ public class MainTests {
    */
   // @Example
   boolean checkGenUpCast() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenUpCast" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenUpCast" + "::inicio");
 
     Arbitrary<CastExpr> e = mCore.genUpCast(
         mCtx,
@@ -371,7 +371,7 @@ public class MainTests {
 
     System.out.println("CheckGenUpCast: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenUpCast" + "::final");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenUpCast" + "::final");
 
     return true;
   }
@@ -383,7 +383,7 @@ public class MainTests {
    */
   // @Example
   boolean checkGenVar() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVar" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVar" + "::inicio");
 
     Arbitrary<NameExpr> e = mCore.genVar(
         mCtx,
@@ -391,7 +391,7 @@ public class MainTests {
 
     System.out.println("checkGenVar: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVar" + "::final");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVar" + "::final");
     return true;
   }
 
@@ -403,7 +403,7 @@ public class MainTests {
    */
   // @Example
   boolean checkSuperTypes() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSuperTypes" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkSuperTypes" + "::inicio");
 
     List<Class> b = mCT.superTypes(
         "br.edu.ifsc." + "javargexamples.AextendExtend");
@@ -412,7 +412,7 @@ public class MainTests {
       System.out.println("SuperTypes: " + i);
     });
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSuperTypes" + "::final");
+    MessageLogger.showMessage(Severity.TRACE, "checkSuperTypes" + "::final");
 
     return true;
   }
@@ -425,7 +425,7 @@ public class MainTests {
    */
   // @Example
   boolean checkSubTypes() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkSubTypes" + "::inicio");
 
     List<Class> b = mCT.subTypes("br.edu.ifsc." + "javargexamples.A");
 
@@ -433,7 +433,7 @@ public class MainTests {
       System.out.println("subTypes: " + i.toString());
     });
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::final");
+    MessageLogger.showMessage(Severity.TRACE, "checkSubTypes" + "::final");
 
     return true;
   }
@@ -448,7 +448,7 @@ public class MainTests {
    */
   // @Example
   boolean checkSubTypes2() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkSubTypes" + "::inicio");
 
     List<Class> b = mCT.subTypes2("br.edu.ifsc." + "javargexamples.A");
 
@@ -456,7 +456,7 @@ public class MainTests {
       System.out.println("subTypes: " + i.toString());
     });
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkSubTypes" + "::final");
+    MessageLogger.showMessage(Severity.TRACE, "checkSubTypes" + "::final");
 
     return true;
   }
@@ -470,7 +470,7 @@ public class MainTests {
   // @Example
   boolean checkGenCandidateUpCast() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidateUpCast" + "::inicio");
 
     Arbitrary<Class> b = mCore.genCandidateUpCast(
@@ -479,7 +479,7 @@ public class MainTests {
     System.out.println("Candidatos UpCast: " + b.sample().getName());
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidateUpCast" + "::final");
 
     return true;
@@ -497,7 +497,7 @@ public class MainTests {
    */
    @Example
     boolean checkGenBlockStmt() throws ClassNotFoundException, IOException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenBlockStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenBlockStmt::inicio");
 
     Arbitrary<BlockStmt> e = mStmt.genBlockStmt(mCtx);
 
@@ -517,7 +517,7 @@ public class MainTests {
 
     compila("MainClass.java");
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenBlockStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenBlockStmt::fim");
 
     return true;
   }
@@ -531,13 +531,13 @@ public class MainTests {
    */
   // @Property(tries = 100)
   boolean checkGenVarDeclAssign() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarDeclaration::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarDeclaration::inicio");
 
     Arbitrary<VariableDeclarationExpr> e = mStmt.genVarDeclAssign(mCtx);
 
     System.out.println("checkGengenVarDeclaration: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarDeclaration::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarDeclaration::fim");
 
     return true;
   }
@@ -550,13 +550,13 @@ public class MainTests {
    */
   // @Property(tries = 100)
   boolean checkGenVarDecl() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarDeclaration::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarDeclaration::inicio");
 
     Arbitrary<VariableDeclarationExpr> e = mStmt.genVarDecl(mCtx);
 
     System.out.println("checkGengenVarDeclaration: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarDeclaration::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarDeclaration::fim");
 
     return true;
   }
@@ -568,13 +568,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenIfStmt() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenIfStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenIfStmt::inicio");
 
     Arbitrary<IfStmt> e = mStmt.genIfStmt(mCtx);
 
     System.out.println("checkGenIfStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenIfStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenIfStmt::fim");
 
     return true;
   }
@@ -587,13 +587,13 @@ public class MainTests {
    */
   // @Example
   boolean checkWhileStmt() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkWhileStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkWhileStmt::inicio");
 
     Arbitrary<WhileStmt> e = mStmt.genWhileStmt(mCtx);
 
     System.out.println("checkWhileStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkWhileStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkWhileStmt::fim");
 
     return true;
   }
@@ -606,7 +606,7 @@ public class MainTests {
    */
   // @Example
   boolean checkGenStatement() throws ClassNotFoundException, IOException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenStatement::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenStatement::inicio");
 
     Arbitrary<Statement> e = mStmt.genStatement(mCtx);
 
@@ -628,7 +628,7 @@ public class MainTests {
 
     // imprimiDados(mSkeleton.addClass(classe.toString()));
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenStatement::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenStatement::fim");
 
     return true;
   }
@@ -640,13 +640,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenExpressionStmt() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenExpressionStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenExpressionStmt::inicio");
 
     Arbitrary<ExpressionStmt> e = mStmt.genExpressionStmt(mCtx);
 
     System.out.println("checkGenExpressionStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenExpressionStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenExpressionStmt::fim");
 
     return true;
   }
@@ -659,13 +659,13 @@ public class MainTests {
   // @Example
   // @Property(tries = 10)
   boolean checkGenLogiExpression() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenLogiExpression::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenLogiExpression::inicio");
 
     Arbitrary<BinaryExpr> e = mOperator.genLogiExpression(mCtx);
 
     System.out.println("checkGenLogiExpression: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenLogiExpression::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenLogiExpression::fim");
 
     return true;
   }
@@ -679,13 +679,13 @@ public class MainTests {
   // @Example
   // @Property(tries = 10)
   boolean checkGenRelaExpression() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenRelaExpression::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenRelaExpression::inicio");
 
     Arbitrary<BinaryExpr> e = mOperator.genRelaExpression(mCtx);
 
     System.out.println("checkGenRelaExpression: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenRelaExpression::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenRelaExpression::fim");
 
     return true;
   }
@@ -699,7 +699,7 @@ public class MainTests {
   // @Example
   // @Property(tries = 10)
   boolean checkGenArithExpression() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenArithExpression::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenArithExpression::inicio");
 
     Arbitrary<BinaryExpr> e = mOperator.genArithExpression(
         mCtx,
@@ -707,7 +707,7 @@ public class MainTests {
 
     System.out.println("checkGenArithExpression: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenArithExpression::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenArithExpression::fim");
 
     return true;
   }
@@ -719,13 +719,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenStatementList() {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenStatementList::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenStatementList::inicio");
 
     Arbitrary<NodeList<Statement>> e = mStmt.genStatementList(mCtx);
 
     System.out.println("checkGenStatementList: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenStatementList::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenStatementList::fim");
 
     return true;
   }
@@ -739,14 +739,14 @@ public class MainTests {
   // @Property(tries = 10)
   boolean checkGenVarDeclarationStmt() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenVarDeclarationStmt::inicio");
 
     Arbitrary<ExpressionStmt> e = mStmt.genVarDeclarationStmt(mCtx);
 
     System.out.println("checkGenVarDeclarationStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarDeclarationStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarDeclarationStmt::fim");
 
     return true;
   }
@@ -758,13 +758,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenVarAssingStmt() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarAssingStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarAssingStmt::inicio");
 
     Arbitrary<VariableDeclarationExpr> e = mStmt.genVarAssingStmt(mCtx);
 
     System.out.println("checkGenVarAssingStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenVarAssingStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenVarAssingStmt::fim");
 
     return true;
   }
@@ -776,13 +776,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenTypeAssingStmt() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
     Arbitrary<AssignExpr> e = mStmt.genTypeAssingStmt(mCtx);
 
     System.out.println("checkGenTypeAssingStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::fim");
 
     return true;
   }
@@ -796,13 +796,13 @@ public class MainTests {
   // @Example
   // @Property(tries=4)
   boolean checkGenFor() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
     Arbitrary<ForStmt> e = mStmt.genForStmt(mCtx);
     // mStmt.genForStmt(mCtx);
     System.out.println("checkGenTypeAssingStmt: " + e.sample());
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::fim");
 
     return true;
   }
@@ -814,13 +814,13 @@ public class MainTests {
    */
   // @Example
   boolean checkGenList() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
     List<Statement> e = mStmt.genList(mCtx);
     // mStmt.genForStmt(mCtx);
     System.out.println("checkGenTypeAssingStmt: " + e.get(0));
 
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenTypeAssingStmt::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenTypeAssingStmt::fim");
 
     return true;
   }
@@ -832,7 +832,7 @@ public class MainTests {
    */
   //@Example
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenLambdaExpr::inicio");
 
     Arbitrary<LambdaExpr> e = mCore.genLambdaExpr(mCtx);
     String expr = e.sample().toString();
@@ -866,24 +866,24 @@ public class MainTests {
     ret = ret.concat(";");
     // System.out.println("checkGenLambdaExpr: " + expr);
     System.out.println("checkGenLambdaExpr: " + ret);
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkGenLambdaExpr::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkGenLambdaExpr::fim");
     return true;
   }
 
   // @Example
   boolean checkInterfaceTable() throws ClassNotFoundException {
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::inicio");
+    MessageLogger.showMessage(Severity.TRACE, "checkInterfaceTable" + "::inicio");
     mIT.get_methods();
     mIT.get_methods_info();
     mIT.show_imports();
-    MessageLogger.showMessage(Severity.MSG_XDEBUG, "checkInterfaceTable" + "::fim");
+    MessageLogger.showMessage(Severity.TRACE, "checkInterfaceTable" + "::fim");
     return true;
   }
 
   @Property(tries = 1)
   boolean checkGenCandidatesInterfaces() throws ClassNotFoundException {
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesInterfaces" + "::inicio");
 
     List<String> candidates = mIT.getCandidateInterfaces(loadImports().iterator().next());
@@ -891,7 +891,7 @@ public class MainTests {
     System.out.println("Candidatos Interfaces: " + candidates.toString());
 
     MessageLogger.showMessage(
-        Severity.MSG_XDEBUG,
+        Severity.TRACE,
         "checkGenCandidatesInterfaces" + "::fim");
 
     return true;

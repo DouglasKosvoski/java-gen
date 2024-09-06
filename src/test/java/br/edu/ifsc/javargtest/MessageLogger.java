@@ -13,14 +13,14 @@ package br.edu.ifsc.javargtest;
 public class MessageLogger {
 
   public enum Severity {
-    MSG_ERROR,
-    MSG_WARN,
-    MSG_INFO,
-    MSG_DEBUG,
-    MSG_XDEBUG,
+    ERROR, //         ERROR,
+    WARN, //         WARN,
+    INFO, //         INFO,
+    DEBUG, //         DEBUG,
+    TRACE, //         TRACE
   }
 
-  public static Severity logLevel = Severity.MSG_ERROR;
+  public static Severity logLevel = Severity.ERROR;
 
   public static void showMessage(Severity s, String msg) {
     if (logLevel.ordinal() >= s.ordinal()) {
