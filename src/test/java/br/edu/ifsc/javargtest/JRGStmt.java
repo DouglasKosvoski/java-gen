@@ -110,10 +110,10 @@ public class JRGStmt {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclaration::inicio");
 
     Arbitrary<PrimitiveType> pt = mBase
-      .primitiveTypes()
+      .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.classOrInterfaceTypes(), pt);
+    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     String v = Arbitraries.of(mValidNames).sample();
 
@@ -213,10 +213,10 @@ public class JRGStmt {
     throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
     Arbitrary<PrimitiveType> pt = mBase
-      .primitiveTypes()
+      .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.classOrInterfaceTypes(), pt);
+    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     Type tp = t.sample();
 
@@ -318,7 +318,7 @@ public class JRGStmt {
   @Provide
   public Arbitrary<ExpressionStmt> genExpressionStmt(Map<String, String> ctx) {
     //@TODO: Sortear o tipo aleatoriamente e passar para genExpression
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypes();
+    Arbitrary<PrimitiveType.Primitive> t = mBase.generatePrimitiveTypes();
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
@@ -405,7 +405,7 @@ public class JRGStmt {
     throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
     Arbitrary<PrimitiveType> pt = mBase
-      .primitiveTypesInt()
+      .generatePrimitiveIntTypes()
       .map(t -> new PrimitiveType(t));
 
     Arbitrary<Type> t = Arbitraries.oneOf(pt);

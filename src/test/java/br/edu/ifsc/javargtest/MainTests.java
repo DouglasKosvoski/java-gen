@@ -140,15 +140,15 @@ public class MainTests {
   /*
    *
    * Generate a random primitive type all available primitive
-   * types can be found at TypeGenerator.java `primitiveTypes()` which
+   * types can be found at TypeGenerator.java `generatePrimitiveTypes()` which
    * then use 'net.jqwik.api.Arbitraries' to fetch all possible types
    *
    */
   // @Example
-  boolean checkGenPrimitiveType() {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypes();
+  boolean checkGeneratePrimitiveType() {
+    Arbitrary<PrimitiveType.Primitive> t = mBase.generatePrimitiveTypes();
 
-    Arbitrary<LiteralExpr> e = t.flatMap(tp -> mBase.genPrimitiveType(new PrimitiveType(tp)));
+    Arbitrary<LiteralExpr> e = t.flatMap(tp -> mBase.generatePrimitiveType(new PrimitiveType(tp)));
 
     System.out.println(
         "Expressão gerada (tipo primitivo): " + e.sample().toString());
@@ -163,8 +163,8 @@ public class MainTests {
    *
    */
   // @Example
-  boolean checkGenPrimitiveString() {
-    Arbitrary<LiteralExpr> s = mBase.genPrimitiveString();
+  boolean CheckGeneratePrimitiveString() {
+    Arbitrary<LiteralExpr> s = mBase.generatePrimitiveString();
 
     System.out.println("Frase gerada: " + s.sample());
 

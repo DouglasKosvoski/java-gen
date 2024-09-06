@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsc.javargtest;
 
 import java.lang.reflect.*;
@@ -12,33 +7,49 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
- * @author unknown
- *
+ * Class responsible for managing class-related information, such as fields, methods,
+ * constructors, and relationships between classes (super types and subtypes).
  */
 public class ClassManager {
 
-  private List<String> mImports;
+  private final List<String> importClassNames;
 
-  public ClassManager(List<String> imports) {
-    mImports = imports;
+  public ClassManager(List<String> importClassNames) {
+      this.importClassNames = importClassNames;
+  }
+
+  /**
+   * Returns the fully qualified names of the classes represented by the imported class names.
+   *
+   * @return a list of fully qualified class names.
+   * @throws ClassNotFoundException if any of the class names cannot be found.
+   */
+  public List<String> getFullyQualifiedClassNames() throws ClassNotFoundException {
+    List<String> classNames = new ArrayList<>();
+
+    for (String className : this.importClassNames) {
+        classNames.add(Class.forName(className).getName());
+    }
+    System.out.println("DEBUG: ClassManager (getFullyQualifiedClassNames) -> " + classNames.toString());
+
+    return classNames;
   }
 
   public List<String> getTypes() throws ClassNotFoundException {
     List<String> list = new ArrayList<>();
 
-    for (String s : mImports) {
+    for (String s : this.importClassNames) {
       list.add(Class.forName(s).getName());
     }
     System.out.println("DEBUG: ClassManager (getTypes) -> " + list.toString());
-    
+
     return list;
   }
 
   public List<Class> getClassTypes() throws ClassNotFoundException {
     List<Class> list = new ArrayList<>();
 
-    for (String s : mImports) {
+    for (String s : this.importClassNames) {
       Class t = Class.forName(s);
       list.add(t);
     }
@@ -51,7 +62,7 @@ public class ClassManager {
     throws ClassNotFoundException {
     List<Field> candidates = new ArrayList<>();
 
-    for (String c : mImports) {
+    for (String c : this.importClassNames) {
       List<Field> flds = getClassFields(c);
 
       List<Field> collect = flds
@@ -61,7 +72,7 @@ public class ClassManager {
 
       candidates.addAll(collect);
     }
-    
+
     System.out.println("DEBUG: ClassManager (getCandidateFields) -> " + candidates.toString());
     return candidates;
   }
@@ -70,17 +81,17 @@ public class ClassManager {
     throws ClassNotFoundException {
     List<Method> candidatesMethod = new ArrayList<>();
 
-    for (String c : mImports) {
+    for (String c : this.importClassNames) {
       List<Method> mthd = getClassMethods(c);
-      
+
       List<Method> collect = mthd
         .stream()
         .filter(m -> m.getReturnType().toString().equals(type))
         .collect(Collectors.toList());
-        
+
         candidatesMethod.addAll(collect);
       }
-      
+
     System.out.println("DEBUG: ClassManager (getCandidateMethods) -> " + candidatesMethod.toString());
     return candidatesMethod;
   }
@@ -105,7 +116,7 @@ public class ClassManager {
     Field f[] = c.getFields();
 
     list.addAll(Arrays.asList(f));
-    
+
     System.out.println("DEBUG: ClassManager (getClassFields) -> " + list.toString());
     return list;
   }
@@ -116,21 +127,21 @@ public class ClassManager {
       .stream()
       .map(f -> f.getGenericType().getTypeName())
       .collect(Collectors.toList());
-      
+
     System.out.println("DEBUG: ClassManager (getClassFieldTypes) -> " + list.toString());
     return list;
   }
-  
+
   public List<Method> getClassMethods(String cname)
     throws ClassNotFoundException {
     List<Method> list = new ArrayList<>();
-    
+
     Class c = Class.forName(cname);
 
     Method m[] = c.getDeclaredMethods();
-    
+
     list.addAll(Arrays.asList(m));
-    
+
     System.out.println("DEBUG: ClassManager (getClassMethods) -> " + list.toString());
     return list;
   }
@@ -140,18 +151,18 @@ public class ClassManager {
     List<Constructor> list = new ArrayList<>();
 
     Class c = Class.forName(cname);
-    
+
     Constructor ct[] = c.getDeclaredConstructors();
 
     list.addAll(Arrays.asList(ct));
-    
+
     System.out.println("DEBUG: ClassManager (getClassConstructors) -> " + list.toString());
     return list;
   }
 
   public List<Class> superTypes(String cname) throws ClassNotFoundException {
     List<Class> list = new ArrayList<>();
-    
+
     Class c = Class.forName(cname);
 
     Class st = c.getSuperclass();
@@ -161,7 +172,7 @@ public class ClassManager {
       c = st;
       st = c.getSuperclass();
     }
-    
+
     System.out.println("DEBUG: ClassManager (superTypes) -> " + list.toString());
     return list;
   }
@@ -177,13 +188,13 @@ public class ClassManager {
     System.out.println(cname);
 
     Class c = Class.forName(cname);
-    
+
     list.add(c);
-    
+
     if (!cname.equals("java.lang.Object")) {
       list.addAll(subTypes(c.getSuperclass().getName()));
     }
-    
+
     System.out.println("DEBUG: ClassManager (subTypes) -> " + list.toString());
     return list;
   }
@@ -198,7 +209,7 @@ public class ClassManager {
 
     Class c = Class.forName(cname);
 
-    for (String cl : this.mImports) {
+    for (String cl : this.importClassNames) {
       List<Class> st = superTypes(cl);
 
       if (st.contains(c)) {
@@ -206,7 +217,7 @@ public class ClassManager {
         list.add(cla);
       }
     }
-    
+
     System.out.println("DEBUG: ClassManager (subTypes2) -> " + list.toString());
     return list;
   }

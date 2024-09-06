@@ -78,7 +78,7 @@ public class JRGOperator {
     VariableDeclarator var,
     Arbitrary<LiteralExpr> ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = mBase.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
     Arbitrary<Expression> e = mCore.genExpression(
@@ -102,7 +102,7 @@ public class JRGOperator {
     VariableDeclarator var,
     Arbitrary<LiteralExpr> ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = mBase.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
     Arbitrary<Expression> e = mCore.genExpression(
@@ -122,7 +122,7 @@ public class JRGOperator {
 
   @Provide
   public Arbitrary<BinaryExpr> genRelaExpression(Map<String, String> ctx) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary<PrimitiveType.Primitive> t = mBase.generateMathematicalPrimitiveTypes();
 
     String tp = t.sample().toString();
 

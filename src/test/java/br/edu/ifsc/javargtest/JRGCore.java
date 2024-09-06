@@ -82,7 +82,7 @@ public class JRGCore {
         // Candidatos de tipos primitivos
         if (t.isPrimitiveType()) {
           cand.add(
-            Arbitraries.oneOf(mBase.genPrimitiveType(t.asPrimitiveType()))
+            Arbitraries.oneOf(mBase.generatePrimitiveType(t.asPrimitiveType()))
           );
         }
 
@@ -118,7 +118,7 @@ public class JRGCore {
       } else { // Não permite aprofundar a recursão
         if (t.isPrimitiveType()) {
           cand.add(
-            Arbitraries.oneOf(mBase.genPrimitiveType(t.asPrimitiveType()))
+            Arbitraries.oneOf(mBase.generatePrimitiveType(t.asPrimitiveType()))
           );
         }
 
@@ -389,10 +389,10 @@ public class JRGCore {
   public Arbitrary<LambdaExpr> genLambdaExpr(Map<String, String> ctx)
     throws ClassNotFoundException {
     Arbitrary<PrimitiveType> pt = mBase
-      .primitiveTypes()
+      .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.classOrInterfaceTypes(), pt);
+    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     Type tp = t.sample();
 

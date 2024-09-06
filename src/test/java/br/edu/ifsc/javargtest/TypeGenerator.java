@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsc.javargtest;
-
-// import static com.sun.jmx.mbeanserver.Util.cast;
 
 import com.github.javaparser.ast.expr.BooleanLiteralExpr;
 import com.github.javaparser.ast.expr.CharLiteralExpr;
@@ -24,123 +17,106 @@ import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Provide;
 
 /**
- *
- * @author lukra
- * 
+ * Provides methods to generate various types of literals and check type characteristics.
+ * Utilizes net.jqwik for arbitrary value generation.
  */
 public class TypeGenerator {
-  private ClassManager mCT;
+  private ClassManager classManager;
 
-  public TypeGenerator(ClassManager ct) {
-    mCT = ct;
+  public TypeGenerator(ClassManager classManager) {
+    this.classManager = classManager;
   }
 
-  @Provide
-  public Arbitrary<ClassOrInterfaceType> classOrInterfaceTypes()
-    throws ClassNotFoundException {
-    List<ClassOrInterfaceType> list = new ArrayList<>();
+  public Arbitrary<ClassOrInterfaceType> generateClassOrInterfaceTypes() throws ClassNotFoundException {
+    List<ClassOrInterfaceType> classOrInterfaceTypeList = new ArrayList<>();
 
-    for (String s : mCT.getTypes()) {
-      ClassOrInterfaceType c = new ClassOrInterfaceType();
-      c.setName(s);
-      list.add(c);
+    for (String fullyQualifiedName : this.classManager.getFullyQualifiedClassNames()) {
+        ClassOrInterfaceType classOrInterfaceType = new ClassOrInterfaceType();
+        classOrInterfaceType.setName(fullyQualifiedName);
+        classOrInterfaceTypeList.add(classOrInterfaceType);
     }
 
-    return Arbitraries.of(list);
+    return Arbitraries.of(classOrInterfaceTypeList);
   }
 
   @Provide
-  Arbitrary<PrimitiveType.Primitive> primitiveTypes() {
-    return Arbitraries.of(PrimitiveType.Primitive.values());
+  public Arbitrary<PrimitiveType.Primitive> generatePrimitiveTypes() {
+      return Arbitraries.of(PrimitiveType.Primitive.values());
   }
 
   @Provide
-  Arbitrary<PrimitiveType.Primitive> primitiveTypesInt() {
-    return Arbitraries.of(PrimitiveType.intType().getType());
+  public Arbitrary<PrimitiveType.Primitive> generatePrimitiveIntTypes() {
+      return Arbitraries.of(PrimitiveType.intType().getType());
   }
 
   @Provide
-  Arbitrary<PrimitiveType.Primitive> primitiveTypesMatematicos() {
-    //PrimitiveType.Primitive.FLOAT,
-
+  public Arbitrary<PrimitiveType.Primitive> generateMathematicalPrimitiveTypes() {
     return Arbitraries.of(
-      PrimitiveType.Primitive.INT,
-      PrimitiveType.Primitive.DOUBLE,
-      PrimitiveType.Primitive.LONG,
-      PrimitiveType.Primitive.SHORT
+        PrimitiveType.Primitive.INT,
+        PrimitiveType.Primitive.DOUBLE,
+        PrimitiveType.Primitive.LONG,
+        PrimitiveType.Primitive.SHORT
     );
   }
 
-  public boolean isNumericType(Type t) {
-    switch (t.asPrimitiveType().getType()) {
-      case DOUBLE:
-        return true;
-      //case FLOAT:
-      //    return true;
-      case INT:
-        return true;
-      case LONG:
-        return true;
-      case BYTE:
-        return true;
-      case SHORT:
-        return true;
+  public boolean isNumericType(Type type) {
+    switch (type.asPrimitiveType().getType()) {
+        case DOUBLE:
+        case INT:
+        case LONG:
+        case BYTE:
+        case SHORT:
+            return true;
+        default:
+            return false;
     }
-
-    return false;
   }
 
   @Provide
-  public Arbitrary<LiteralExpr> genPrimitiveString() {
+  public Arbitrary<LiteralExpr> generatePrimitiveString() {
     MessageLogger.log(
-      MessageLogger.Severity.TRACE,
-      "genPrimitiveString::inicio"
+        MessageLogger.Severity.TRACE,
+        "generatePrimitiveString: Start"
     );
 
     return Arbitraries
-      .strings()
-      .withCharRange('a', 'z')
-      .ofMinLength(1)
-      .ofMaxLength(5)
-      .map(S -> new StringLiteralExpr(String.valueOf(S)));
+        .strings()
+        .withCharRange('a', 'z')
+        .ofMinLength(1)
+        .ofMaxLength(5)
+        .map(StringLiteralExpr::new);
   }
 
   @Provide
-  public Arbitrary<LiteralExpr> genPrimitiveType(PrimitiveType t) {
-    LiteralExpr e = null;
-
-    switch (t.getType()) {
-      case BOOLEAN:
-        return Arbitraries.of(true, false).map(b -> new BooleanLiteralExpr(b));
-      case CHAR:
-        return Arbitraries.chars().ascii().map(c -> new CharLiteralExpr(c));
-      case DOUBLE:
-        return Arbitraries
-          .doubles()
-          .between(0, +99999)
-          .map(d -> new DoubleLiteralExpr(String.valueOf(d)));
-      //case FLOAT:
-      //    return Arbitraries.floats().between(0, 1000).map(f -> new DoubleLiteralExpr(
-      //            String.valueOf(f.floatValue())));
-      //tá convertendo para um double
-      case INT:
-        return Arbitraries
-          .integers()
-          .map(i -> new IntegerLiteralExpr(String.valueOf(i)));
-      case LONG:
-        return Arbitraries
-          .longs()
-          .map(l -> new LongLiteralExpr(String.valueOf(l)));
-      case BYTE:
-        return Arbitraries
-          .bytes()
-          .map(bt -> new IntegerLiteralExpr(String.valueOf(bt)));
-      case SHORT:
-        return Arbitraries
-          .shorts()
-          .map(s -> new IntegerLiteralExpr(String.valueOf(s)));
-    }
-
-    return Arbitraries.just(e);
+  public Arbitrary<LiteralExpr> generatePrimitiveType(PrimitiveType type) {
+      switch (type.getType()) {
+          case BOOLEAN:
+              return Arbitraries.of(true, false).map(BooleanLiteralExpr::new);
+          case CHAR:
+              return Arbitraries.chars().ascii().map(CharLiteralExpr::new);
+          case DOUBLE:
+              return Arbitraries
+                  .doubles()
+                  .between(0, 99999)
+                  .map(d -> new DoubleLiteralExpr(String.valueOf(d)));
+          case INT:
+              return Arbitraries
+                  .integers()
+                  .map(i -> new IntegerLiteralExpr(String.valueOf(i)));
+          case LONG:
+              return Arbitraries
+                  .longs()
+                  .map(l -> new LongLiteralExpr(String.valueOf(l)));
+          case BYTE:
+              return Arbitraries
+                  .bytes()
+                  .map(bt -> new IntegerLiteralExpr(String.valueOf(bt)));
+          case SHORT:
+              return Arbitraries
+                  .shorts()
+                  .map(s -> new IntegerLiteralExpr(String.valueOf(s)));
+          default:
+              return Arbitraries.just(null);
+      }
   }
 }
