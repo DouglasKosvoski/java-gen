@@ -92,8 +92,8 @@ public class TypeGenerator {
 
   @Provide
   public Arbitrary<LiteralExpr> genPrimitiveString() {
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genPrimitiveString::inicio"
     );
 

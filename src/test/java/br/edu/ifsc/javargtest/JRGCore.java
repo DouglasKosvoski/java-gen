@@ -150,10 +150,10 @@ public class JRGCore {
     Map<String, String> ctx,
     List<Type> types
   ) {
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genExpressionList::inicio");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genExpressionList::inicio");
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genExpressionList::types" + types.toString()
     );
     List<Expression> exs = types
@@ -164,7 +164,7 @@ public class JRGCore {
 
     NodeList<Expression> nodes = new NodeList<>(exs);
 
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genExpressionList::fim");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genExpressionList::fim");
 
     return Arbitraries.just(nodes);
   }
@@ -176,7 +176,7 @@ public class JRGCore {
     Type t
   )
     throws ClassNotFoundException {
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genObjectCreation::inicio");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genObjectCreation::inicio");
 
     List<Constructor> constrs;
 
@@ -186,8 +186,8 @@ public class JRGCore {
 
     Constructor constr = c.sample();
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_DEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_DEBUG,
       "genObjectCreation::constr : " + constr.toString()
     );
 
@@ -195,8 +195,8 @@ public class JRGCore {
 
     List<Class> ps = Arrays.asList(params);
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_DEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_DEBUG,
       "genObjectCreation::ps " + ps
     );
 
@@ -207,12 +207,12 @@ public class JRGCore {
       )
       .collect(Collectors.toList());
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_DEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_DEBUG,
       "genObjectCreation::types " + "[" + types + "]"
     );
 
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genObjectCreation::fim");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genObjectCreation::fim");
 
     return genExpressionList(ctx, types)
       .map(el -> new ObjectCreationExpr(null, t.asClassOrInterfaceType(), el));
@@ -224,8 +224,8 @@ public class JRGCore {
     Type t
   )
     throws ClassNotFoundException {
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genAttributeAccess::inicio"
     );
 
@@ -233,13 +233,13 @@ public class JRGCore {
 
     Field field = f.sample();
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genAttributeAccess::field: " + field.getName()
     );
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genAttributeAccess::Class: " + field.getDeclaringClass().getName()
     );
 
@@ -250,7 +250,7 @@ public class JRGCore {
       )
     );
 
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genAttributeAccess::fim");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genAttributeAccess::fim");
 
     return e.map(obj -> new FieldAccessExpr(obj, field.getName()));
   }
@@ -261,15 +261,15 @@ public class JRGCore {
     Type t
   )
     throws ClassNotFoundException {
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_XDEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_XDEBUG,
       "genMethodInvokation:" + ":inicio"
     );
 
     Arbitrary<Method> methods;
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_DEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_DEBUG,
       "genMethodInvokation:" + ":t = " + t.asString()
     );
 
@@ -281,8 +281,8 @@ public class JRGCore {
 
     List<Class> ps = Arrays.asList(params);
 
-    JRGLog.showMessage(
-      JRGLog.Severity.MSG_DEBUG,
+    MessageLogger.showMessage(
+      MessageLogger.Severity.MSG_DEBUG,
       "genObjectCreation:" + ":method " + method.toString()
     );
 
@@ -300,7 +300,7 @@ public class JRGCore {
       )
       .collect(Collectors.toList());
 
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genMethodInvokation::fim");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genMethodInvokation::fim");
 
     return genExpressionList(ctx, types)
       .map(el -> new MethodCallExpr(e.sample(), method.getName(), el));
@@ -308,7 +308,7 @@ public class JRGCore {
 
   @Provide
   public Arbitrary<NameExpr> genVar(Map<String, String> ctx, Type t) {
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genVar::inicio");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genVar::inicio");
 
     List<NameExpr> collect = ctx
       .entrySet()
@@ -317,7 +317,7 @@ public class JRGCore {
       .map(x -> new NameExpr(x.getKey()))
       .collect(Collectors.toList());
 
-    JRGLog.showMessage(JRGLog.Severity.MSG_XDEBUG, "genVar::fim");
+    MessageLogger.showMessage(MessageLogger.Severity.MSG_XDEBUG, "genVar::fim");
 
     return Arbitraries.of(collect);
   }

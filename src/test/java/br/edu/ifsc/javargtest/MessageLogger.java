@@ -10,7 +10,7 @@ package br.edu.ifsc.javargtest;
  * @author samuel
  * 
  */
-public class JRGLog {
+public class MessageLogger {
 
   public enum Severity {
     MSG_ERROR,
