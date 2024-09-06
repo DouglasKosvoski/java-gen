@@ -59,12 +59,12 @@ public class JRGOperator {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.convertToParserType(t.toString())
     );
 
     Arbitrary<Expression> ex = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.convertToParserType(t.toString())
     );
 
     return e.map(
@@ -83,7 +83,7 @@ public class JRGOperator {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(
@@ -107,7 +107,7 @@ public class JRGOperator {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(
@@ -128,12 +128,12 @@ public class JRGOperator {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     Arbitrary<Expression> ex = mCore.genExpression(
       ctx,
-      JavaTypeTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(

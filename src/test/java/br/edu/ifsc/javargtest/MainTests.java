@@ -219,7 +219,7 @@ public class MainTests {
     // Arbitrary<MethodCallExpr> e = mCore.genMethodInvokation(c);
     Arbitrary<MethodCallExpr> e = mCore.genMethodInvokation(
         mCtx,
-        JavaTypeTranslator.reflectToParserType("int"));
+        JavaTypeTranslator.convertToParserType("int"));
 
     if (e != null) {
       System.out.println("Method gerado: " + e.sample().toString());
@@ -319,7 +319,7 @@ public class MainTests {
     try {
       Arbitrary<Expression> e = mCore.genExpression(
           mCtx,
-          JavaTypeTranslator.reflectToParserType("int"));
+          JavaTypeTranslator.convertToParserType("int"));
       System.out.println("Expressão gerada: " + e.sample());
     } catch (Exception ex) {
       System.out.println("Erro: " + ex.getMessage());
@@ -345,7 +345,7 @@ public class MainTests {
 
     Arbitrary<FieldAccessExpr> e = mCore.genAttributeAccess(
         mCtx,
-        JavaTypeTranslator.reflectToParserType("String"));
+        JavaTypeTranslator.convertToParserType("String"));
 
     System.out.println("Acesso gerado: " + e.sample());
 
@@ -366,7 +366,7 @@ public class MainTests {
 
     Arbitrary<CastExpr> e = mCore.genUpCast(
         mCtx,
-        JavaTypeTranslator.reflectToParserType(
+        JavaTypeTranslator.convertToParserType(
             "br.edu.ifsc." + "javargexamples.Aextend"));
 
     System.out.println("CheckGenUpCast: " + e.sample());
@@ -387,7 +387,7 @@ public class MainTests {
 
     Arbitrary<NameExpr> e = mCore.genVar(
         mCtx,
-        JavaTypeTranslator.reflectToParserType("int"));
+        JavaTypeTranslator.convertToParserType("int"));
 
     System.out.println("checkGenVar: " + e.sample());
 
@@ -703,7 +703,7 @@ public class MainTests {
 
     Arbitrary<BinaryExpr> e = mOperator.genArithExpression(
         mCtx,
-        JavaTypeTranslator.reflectToParserType("int"));
+        JavaTypeTranslator.convertToParserType("int"));
 
     System.out.println("checkGenArithExpression: " + e.sample());
 
