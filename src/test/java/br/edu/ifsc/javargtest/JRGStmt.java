@@ -245,7 +245,7 @@ public class JRGStmt {
 
     String value = ctx.get(key);
 
-    Type tp = ReflectParserTranslator.reflectToParserType(value);
+    Type tp = JavaTypeTranslator.reflectToParserType(value);
 
     Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
 
@@ -261,7 +261,7 @@ public class JRGStmt {
 
     String value = ctx.get(key);
 
-    Type tp = ReflectParserTranslator.reflectToParserType(value);
+    Type tp = JavaTypeTranslator.reflectToParserType(value);
 
     Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
 
@@ -322,7 +322,7 @@ public class JRGStmt {
 
     Arbitrary<Expression> e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(t.sample().toString())
+      JavaTypeTranslator.reflectToParserType(t.sample().toString())
     );
 
     return e.map(exp -> new ExpressionStmt(exp));

@@ -14,7 +14,7 @@ import com.github.javaparser.ast.type.Type;
  * @author samuel
  * 
  */
-public class ReflectParserTranslator {
+public class JavaTypeTranslator {
 
   public static Type reflectToParserType(String tname) {
     switch (tname.toLowerCase()) {

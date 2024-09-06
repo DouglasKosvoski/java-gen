@@ -203,7 +203,7 @@ public class JRGCore {
     List<Type> types = ps
       .stream()
       .map(
-        tname -> ReflectParserTranslator.reflectToParserType(tname.getName())
+        tname -> JavaTypeTranslator.reflectToParserType(tname.getName())
       )
       .collect(Collectors.toList());
 
@@ -245,7 +245,7 @@ public class JRGCore {
 
     Arbitrary<Expression> e = genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(
+      JavaTypeTranslator.reflectToParserType(
         field.getDeclaringClass().getName()
       )
     );
@@ -288,7 +288,7 @@ public class JRGCore {
 
     Arbitrary<Expression> e = genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(
+      JavaTypeTranslator.reflectToParserType(
         method.getDeclaringClass().getName()
       )
     );
@@ -296,7 +296,7 @@ public class JRGCore {
     List<Type> types = ps
       .stream()
       .map(
-        tname -> ReflectParserTranslator.reflectToParserType(tname.getName())
+        tname -> JavaTypeTranslator.reflectToParserType(tname.getName())
       )
       .collect(Collectors.toList());
 
@@ -333,13 +333,13 @@ public class JRGCore {
 
     Arbitrary<Expression> e = genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(c.getName())
+      JavaTypeTranslator.reflectToParserType(c.getName())
     );
 
     return e.map(
       obj ->
         new CastExpr(
-          ReflectParserTranslator.reflectToParserType(t.asString()),
+          JavaTypeTranslator.reflectToParserType(t.asString()),
           obj
         )
     );
