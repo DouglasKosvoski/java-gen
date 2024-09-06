@@ -35,7 +35,7 @@ import net.jqwik.api.Provide;
 public class JRGCore {
   private static final int FUEL_START = 10;
 
-  private ClassTable mCT;
+  private ClassManager mCT;
 
   private JRGBase mBase;
 
@@ -47,7 +47,7 @@ public class JRGCore {
 
   int mFuel;
 
-  public JRGCore(ClassTable ct, JRGBase base) {
+  public JRGCore(ClassManager ct, JRGBase base) {
     mCT = ct;
 
     mBase = base;

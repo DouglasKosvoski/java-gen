@@ -34,7 +34,7 @@ import net.jqwik.api.Provide;
  * 
  */
 public class JRGStmt {
-  private ClassTable mCT;
+  private ClassManager mCT;
 
   private static final int FUEL_START = 10;
 
@@ -53,7 +53,7 @@ public class JRGStmt {
   public static final int IF_STMT = 1, FOR_STMT = 2, VAR_DECL_STMT =
     3, VAR_DECLARATION_STMT = 4;
 
-  public JRGStmt(ClassTable ct, JRGBase base, JRGCore core) {
+  public JRGStmt(ClassManager ct, JRGBase base, JRGCore core) {
     mCT = ct;
 
     mBase = base;

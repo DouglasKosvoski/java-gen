@@ -19,13 +19,13 @@ import net.jqwik.api.Provide;
  * 
  */
 public class JRGOperator {
-  private ClassTable mCT;
+  private ClassManager mCT;
 
   private JRGBase mBase;
 
   private JRGCore mCore;
 
-  public JRGOperator(ClassTable ct, JRGBase base, JRGCore core) {
+  public JRGOperator(ClassManager ct, JRGBase base, JRGCore core) {
     mCT = ct;
 
     mBase = base;

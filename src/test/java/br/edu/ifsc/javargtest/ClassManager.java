@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  * @author unknown
  *
  */
-public class ClassTable {
+public class ClassManager {
 
   private List<String> mImports;
 
-  public ClassTable(List<String> imports) {
+  public ClassManager(List<String> imports) {
     mImports = imports;
   }
 
@@ -30,7 +30,7 @@ public class ClassTable {
     for (String s : mImports) {
       list.add(Class.forName(s).getName());
     }
-    System.out.println("DEBUG: ClassTable (getTypes) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getTypes) -> " + list.toString());
     
     return list;
   }
@@ -42,7 +42,7 @@ public class ClassTable {
       Class t = Class.forName(s);
       list.add(t);
     }
-    System.out.println("DEBUG: ClassTable (getTypes) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getTypes) -> " + list.toString());
 
     return list;
   }
@@ -62,7 +62,7 @@ public class ClassTable {
       candidates.addAll(collect);
     }
     
-    System.out.println("DEBUG: ClassTable (getCandidateFields) -> " + candidates.toString());
+    System.out.println("DEBUG: ClassManager (getCandidateFields) -> " + candidates.toString());
     return candidates;
   }
 
@@ -81,7 +81,7 @@ public class ClassTable {
         candidatesMethod.addAll(collect);
       }
       
-    System.out.println("DEBUG: ClassTable (getCandidateMethods) -> " + candidatesMethod.toString());
+    System.out.println("DEBUG: ClassManager (getCandidateMethods) -> " + candidatesMethod.toString());
     return candidatesMethod;
   }
 
@@ -92,7 +92,7 @@ public class ClassTable {
     List<Constructor> cntc = getClassConstructors(type);
 
     candidatesConstructor.addAll(cntc);
-    System.out.println("DEBUG: ClassTable (getCandidateConstructors) -> " + candidatesConstructor.toString());
+    System.out.println("DEBUG: ClassManager (getCandidateConstructors) -> " + candidatesConstructor.toString());
     return candidatesConstructor;
   }
 
@@ -106,7 +106,7 @@ public class ClassTable {
 
     list.addAll(Arrays.asList(f));
     
-    System.out.println("DEBUG: ClassTable (getClassFields) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getClassFields) -> " + list.toString());
     return list;
   }
 
@@ -117,7 +117,7 @@ public class ClassTable {
       .map(f -> f.getGenericType().getTypeName())
       .collect(Collectors.toList());
       
-    System.out.println("DEBUG: ClassTable (getClassFieldTypes) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getClassFieldTypes) -> " + list.toString());
     return list;
   }
   
@@ -131,7 +131,7 @@ public class ClassTable {
     
     list.addAll(Arrays.asList(m));
     
-    System.out.println("DEBUG: ClassTable (getClassMethods) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getClassMethods) -> " + list.toString());
     return list;
   }
 
@@ -145,7 +145,7 @@ public class ClassTable {
 
     list.addAll(Arrays.asList(ct));
     
-    System.out.println("DEBUG: ClassTable (getClassConstructors) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (getClassConstructors) -> " + list.toString());
     return list;
   }
 
@@ -162,7 +162,7 @@ public class ClassTable {
       st = c.getSuperclass();
     }
     
-    System.out.println("DEBUG: ClassTable (superTypes) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (superTypes) -> " + list.toString());
     return list;
   }
 
@@ -184,7 +184,7 @@ public class ClassTable {
       list.addAll(subTypes(c.getSuperclass().getName()));
     }
     
-    System.out.println("DEBUG: ClassTable (subTypes) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (subTypes) -> " + list.toString());
     return list;
   }
 
@@ -207,7 +207,7 @@ public class ClassTable {
       }
     }
     
-    System.out.println("DEBUG: ClassTable (subTypes2) -> " + list.toString());
+    System.out.println("DEBUG: ClassManager (subTypes2) -> " + list.toString());
     return list;
   }
 }

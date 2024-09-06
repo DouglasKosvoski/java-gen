@@ -34,7 +34,7 @@ public class MainTests {
 
   private CompilationUnit mSkeleton;
 
-  private ClassTable mCT;
+  private ClassManager mCT;
 
   private InterfaceTable mIT;
 
@@ -61,7 +61,7 @@ public class MainTests {
     List<String> imp = new ArrayList<>();
     imp = loadImports();
 
-    mCT = new ClassTable(imp);
+    mCT = new ClassManager(imp);
 
     mIT = new InterfaceTable(imp);
 
@@ -204,7 +204,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a random Method from `JRGCore.java` ClassTable
+   * Generate a random Method from `JRGCore.java` ClassManager
    *
    */
   // @Property(tries = 10)
@@ -398,7 +398,7 @@ public class MainTests {
   /*
    *
    * Get all super() from subsequents class inheritance calls
-   * from ClassTable given a Class path as a parameter
+   * from ClassManager given a Class path as a parameter
    *
    */
   // @Example
@@ -420,7 +420,7 @@ public class MainTests {
   /*
    *
    * Get the subTypes from a given class object
-   * from ClassTable given a Class path as a parameter
+   * from ClassManager given a Class path as a parameter
    *
    */
   // @Example
@@ -441,7 +441,7 @@ public class MainTests {
   /*
    *
    * Get all superTypes from subsequent class calls
-   * from ClassTable given a Class path as a parameter
+   * from ClassManager given a Class path as a parameter
    *
    * In fact, should be called `checkSuperTypes()`
    *

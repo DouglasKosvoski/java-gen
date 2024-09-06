@@ -29,9 +29,9 @@ import net.jqwik.api.Provide;
  * 
  */
 public class JRGBase {
-  private ClassTable mCT;
+  private ClassManager mCT;
 
-  public JRGBase(ClassTable ct) {
+  public JRGBase(ClassManager ct) {
     mCT = ct;
   }
 
