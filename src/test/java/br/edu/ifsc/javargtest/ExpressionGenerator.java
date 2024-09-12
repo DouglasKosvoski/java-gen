@@ -13,19 +13,14 @@ import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Provide;
 
-/**
- * 
- * @author unknown
- * 
- */
-public class JRGOperator {
+public class ExpressionGenerator {
   private ClassManager mCT;
 
   private TypeGenerator mBase;
 
-  private JRGCore mCore;
+  private CoreExpressionGenerator mCore;
 
-  public JRGOperator(ClassManager ct, TypeGenerator base, JRGCore core) {
+  public ExpressionGenerator(ClassManager ct, TypeGenerator base, CoreExpressionGenerator core) {
     mCT = ct;
 
     mBase = base;

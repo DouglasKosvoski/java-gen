@@ -40,11 +40,11 @@ public class MainTests {
 
   private TypeGenerator mBase;
 
-  private JRGCore mCore;
+  private CoreExpressionGenerator mCore;
 
   private JRGStmt mStmt;
 
-  private JRGOperator mOperator;
+  private ExpressionGenerator mOperator;
 
   private Map < String, String > mCtx;
 
@@ -67,11 +67,11 @@ public class MainTests {
 
     mBase = new TypeGenerator(mCT);
 
-    mCore = new JRGCore(mCT, mBase);
+    mCore = new CoreExpressionGenerator(mCT, mBase);
 
     mStmt = new JRGStmt(mCT, mBase, mCore);
 
-    mOperator = new JRGOperator(mCT, mBase, mCore);
+    mOperator = new ExpressionGenerator(mCT, mBase, mCore);
 
     mCtx = new HashMap < String, String > ();
   }
@@ -173,7 +173,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a new Class or Interface type from `JRGCore.java`
+   * Generate a new Class or Interface type from `CoreExpressionGenerator.java`
    *
    */
   // @Example
@@ -204,7 +204,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a random Method from `JRGCore.java` ClassManager
+   * Generate a random Method from `CoreExpressionGenerator.java` ClassManager
    *
    */
   // @Property(tries = 10)
@@ -239,7 +239,7 @@ public class MainTests {
   /*
    *
    * Picks a random Method from a list of avaiable methods
-   * from `JRGCore.java` using the given type "int" as a parameter
+   * from `CoreExpressionGenerator.java` using the given type "int" as a parameter
    *
    */
   // @Example
@@ -262,7 +262,7 @@ public class MainTests {
   /*
    *
    * Picks a random Field/Attribute from a list of avaiable fields/attributes
-   * from `JRGCore.java` using the given type "int" as a parameter
+   * from `CoreExpressionGenerator.java` using the given type "int" as a parameter
    *
    */
   // @Example
@@ -285,7 +285,7 @@ public class MainTests {
   /*
    *
    * Picks a random Constructor from a list of avaiable constructors
-   * from `JRGCore.java` using the given type class as a parameter
+   * from `CoreExpressionGenerator.java` using the given type class as a parameter
    *
    */
   // @Example
@@ -334,7 +334,7 @@ public class MainTests {
   /*
    *
    * Generate a statement for accessing an attribute of type 'int'
-   * from `JRGCore.java` using 'tname: int' as parameter
+   * from `CoreExpressionGenerator.java` using 'tname: int' as parameter
    *
    */
   // @Example
@@ -357,7 +357,7 @@ public class MainTests {
   /*
    *
    * Generate a Cast expression for convertion
-   * from `JRGCore.java` using a Class as parameter
+   * from `CoreExpressionGenerator.java` using a Class as parameter
    *
    */
   // @Example
@@ -464,7 +464,7 @@ public class MainTests {
   /*
    *
    * Get the candidates for up-casting
-   * from `JRGCore.java` using the class object as a parameter
+   * from `CoreExpressionGenerator.java` using the class object as a parameter
    *
    */
   // @Example
@@ -653,7 +653,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a Logical Expressions from `JRGOperator.java`
+   * Generate a Logical Expressions from `ExpressionGenerator.java`
    *
    */
   // @Example
@@ -672,7 +672,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a Relational Expressions from `JRGOperator.java`
+   * Generate a Relational Expressions from `ExpressionGenerator.java`
    * Using comparision signs as <, ==, >= for example
    *
    */
@@ -692,7 +692,7 @@ public class MainTests {
 
   /*
    *
-   * Generate a Arithmetic Expressions from `JRGOperator.java`
+   * Generate a Arithmetic Expressions from `ExpressionGenerator.java`
    * Using %, ==, +, -, * between two or more statements for example
    *
    */
@@ -827,7 +827,7 @@ public class MainTests {
 
   /*
    *
-   * Generate Lambda expressions from `JRGCore.java`
+   * Generate Lambda expressions from `CoreExpressionGenerator.java`
    *
    */
   //@Example

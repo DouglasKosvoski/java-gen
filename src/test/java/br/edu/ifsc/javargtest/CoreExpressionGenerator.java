@@ -27,19 +27,14 @@ import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Provide;
 
-/**
- *
- * @author lukra
- * 
- */
-public class JRGCore {
+public class CoreExpressionGenerator {
   private static final int FUEL_START = 10;
 
   private ClassManager mCT;
 
   private TypeGenerator mBase;
 
-  private JRGOperator mOperator;
+  private ExpressionGenerator mOperator;
 
   //private Map<String, String> mCtx;
 
@@ -47,12 +42,12 @@ public class JRGCore {
 
   int mFuel;
 
-  public JRGCore(ClassManager ct, TypeGenerator base) {
+  public CoreExpressionGenerator(ClassManager ct, TypeGenerator base) {
     mCT = ct;
 
     mBase = base;
 
-    mOperator = new JRGOperator(mCT, mBase, this);
+    mOperator = new ExpressionGenerator(mCT, mBase, this);
 
     //mCtx = new HashMap<String, String>();
 

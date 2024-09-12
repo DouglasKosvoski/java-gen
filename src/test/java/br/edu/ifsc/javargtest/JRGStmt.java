@@ -28,11 +28,6 @@ import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Provide;
 
-/**
- * 
- * @author unknown
- * 
- */
 public class JRGStmt {
   private ClassManager mCT;
 
@@ -44,51 +39,26 @@ public class JRGStmt {
 
   private List < String > mValidNames;
 
-  private JRGCore mCore;
+  private CoreExpressionGenerator mCore;
 
-  private JRGOperator mOperator;
+  private ExpressionGenerator mOperator;
 
   public static final int MAX_STMT = 5;
   //WHILE_STMT = 2,
   public static final int IF_STMT = 1, FOR_STMT = 2, VAR_DECL_STMT =
     3, VAR_DECLARATION_STMT = 4;
 
-  public JRGStmt(ClassManager ct, TypeGenerator base, JRGCore core) {
+  public JRGStmt(ClassManager ct, TypeGenerator base, CoreExpressionGenerator core) {
     mCT = ct;
 
     mBase = base;
 
     mCore = core;
 
-    mOperator = new JRGOperator(mCT, mBase, mCore);
+    mOperator = new ExpressionGenerator(mCT, mBase, mCore);
 
     List < String > tempNames = Arrays.asList(
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z"
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     );
     mValidNames = new LinkedList < > (tempNames);
 
