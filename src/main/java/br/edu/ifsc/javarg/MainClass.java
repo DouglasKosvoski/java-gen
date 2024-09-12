@@ -8,12 +8,6 @@ package br.edu.ifsc.javarg;
 // import java.util.function.Supplier;
 import br.edu.ifsc.javargexamples.G;
 
-
-/**
- *
- * @author unknown
- *
- */
 @SuppressWarnings("all")
 public class MainClass {
 

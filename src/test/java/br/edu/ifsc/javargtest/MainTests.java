@@ -46,7 +46,7 @@ public class MainTests {
 
   private JRGOperator mOperator;
 
-  private Map<String, String> mCtx;
+  private Map < String, String > mCtx;
 
   public MainTests() throws FileNotFoundException, IOException {
     mSkeleton = StaticJavaParser.parse(new File(SKELETON_PATH));
@@ -58,7 +58,7 @@ public class MainTests {
 
   @BeforeTry
   public void createObjects() {
-    List<String> imp = new ArrayList<>();
+    List < String > imp = new ArrayList < > ();
     imp = loadImports();
 
     mCT = new ClassManager(imp);
@@ -73,16 +73,16 @@ public class MainTests {
 
     mOperator = new JRGOperator(mCT, mBase, mCore);
 
-    mCtx = new HashMap<String, String>();
+    mCtx = new HashMap < String, String > ();
   }
 
   // Auxiliary methods
-  private List<String> loadImports() {
-    NodeList<ImportDeclaration> imports = mSkeleton.getImports();
+  private List < String > loadImports() {
+    NodeList < ImportDeclaration > imports = mSkeleton.getImports();
 
-    List<String> list = new ArrayList<>();
+    List < String > list = new ArrayList < > ();
 
-    Iterator<ImportDeclaration> it = imports.iterator();
+    Iterator < ImportDeclaration > it = imports.iterator();
     while (it.hasNext()) {
       ImportDeclaration i = it.next();
       list.add(i.getName().asString());
@@ -102,8 +102,7 @@ public class MainTests {
     DotPrinter printer = new DotPrinter(true);
 
     try (
-        FileWriter fileWriter = new FileWriter("ast.dot");
-        PrintWriter printWriter = new PrintWriter(fileWriter)) {
+      FileWriter fileWriter = new FileWriter("ast.dot"); PrintWriter printWriter = new PrintWriter(fileWriter)) {
       printWriter.print(printer.output(mSkeleton));
     }
   }
@@ -114,8 +113,7 @@ public class MainTests {
     PrettyPrinter printer = new PrettyPrinter();
 
     try (
-        FileWriter arq = new FileWriter("MainClass.java");
-        PrintWriter gravarArq = new PrintWriter(arq)) {
+      FileWriter arq = new FileWriter("MainClass.java"); PrintWriter gravarArq = new PrintWriter(arq)) {
       // gravarArq.print(mSkeleton.toString());
       gravarArq.print(printer.print(Classe));
     }
@@ -125,8 +123,10 @@ public class MainTests {
     PrintWriter saida = new PrintWriter(new FileWriter("logCompilacao.txt"));
 
     int resultadoCompilacao = com.sun.tools.javac.Main.compile(
-        new String[] { arquivo2 },
-        saida);
+      new String[] {
+        arquivo2
+      },
+      saida);
   }
 
   /**********************************
@@ -146,12 +146,12 @@ public class MainTests {
    */
   // @Example
   boolean checkGeneratePrimitiveType() {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.generatePrimitiveTypes();
+    Arbitrary < PrimitiveType.Primitive > t = mBase.generatePrimitiveTypes();
 
-    Arbitrary<LiteralExpr> e = t.flatMap(tp -> mBase.generatePrimitiveType(new PrimitiveType(tp)));
+    Arbitrary < LiteralExpr > e = t.flatMap(tp -> mBase.generatePrimitiveType(new PrimitiveType(tp)));
 
     System.out.println(
-        "Expressão gerada (tipo primitivo): " + e.sample().toString());
+      "Expressão gerada (tipo primitivo): " + e.sample().toString());
 
     return true;
   }
@@ -164,7 +164,7 @@ public class MainTests {
    */
   // @Example
   boolean CheckGeneratePrimitiveString() {
-    Arbitrary<LiteralExpr> s = mBase.generatePrimitiveString();
+    Arbitrary < LiteralExpr > s = mBase.generatePrimitiveString();
 
     System.out.println("Frase gerada: " + s.sample());
 
@@ -179,22 +179,22 @@ public class MainTests {
   // @Example
   boolean checkGenObjectCreation() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenObjectCreation" + "::inicio");
+      Severity.TRACE,
+      "checkGenObjectCreation" + "::inicio");
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
 
     c.setName("br.edu.ifsc.javargexamples.B");
 
     // Arbitrary<ObjectCreationExpr> e = mCore.genObjectCreation(c);
-    Arbitrary<Expression> e = mCore.genObjectCreation(mCtx, c);
+    Arbitrary < Expression > e = mCore.genObjectCreation(mCtx, c);
 
     if (e != null) {
       System.out.println("ObjectCreation gerado: " + e.sample().toString());
     } else {
       MessageLogger.log(
-          Severity.ERROR,
-          "Não foi possível gerar " + "criação de objeto");
+        Severity.ERROR,
+        "Não foi possível gerar " + "criação de objeto");
     }
 
     MessageLogger.log(Severity.TRACE, "checkGenObjectCreation::fim");
@@ -210,28 +210,28 @@ public class MainTests {
   // @Property(tries = 10)
   boolean checkGenMethodInvokation() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenMethodInvokation" + "::inicio");
+      Severity.TRACE,
+      "checkGenMethodInvokation" + "::inicio");
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
 
     c.setName("br.edu.ifsc.javargexamples.B");
     // Arbitrary<MethodCallExpr> e = mCore.genMethodInvokation(c);
-    Arbitrary<MethodCallExpr> e = mCore.genMethodInvokation(
-        mCtx,
-        JavaTypeTranslator.convertToParserType("int"));
+    Arbitrary < MethodCallExpr > e = mCore.genMethodInvokation(
+      mCtx,
+      JavaTypeTranslator.convertToParserType("int"));
 
     if (e != null) {
       System.out.println("Method gerado: " + e.sample().toString());
     } else {
       MessageLogger.log(
-          Severity.ERROR,
-          "Não foi possível gerar " + "criação do método");
+        Severity.ERROR,
+        "Não foi possível gerar " + "criação do método");
     }
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenMethodInvokation" + "::fim");
+      Severity.TRACE,
+      "checkGenMethodInvokation" + "::fim");
 
     return true;
   }
@@ -245,16 +245,16 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesMethods() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesMethods" + "::inicio");
+      Severity.TRACE,
+      "checkGenCandidatesMethods" + "::inicio");
 
-    Arbitrary<Method> b = mCore.genCandidatesMethods("int");
+    Arbitrary < Method > b = mCore.genCandidatesMethods("int");
 
     System.out.println("Candidatos Methods: " + b.sample());
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesMethods" + "::fim");
+      Severity.TRACE,
+      "checkGenCandidatesMethods" + "::fim");
 
     return true;
   }
@@ -268,16 +268,16 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesFields() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesFields" + "::inicio");
+      Severity.TRACE,
+      "checkGenCandidatesFields" + "::inicio");
 
-    Arbitrary<Field> b = mCore.genCandidatesField("int");
+    Arbitrary < Field > b = mCore.genCandidatesField("int");
 
     System.out.println("Candidatos Fields: " + b.sample());
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesFields:" + ":fim");
+      Severity.TRACE,
+      "checkGenCandidatesFields:" + ":fim");
 
     return true;
   }
@@ -291,17 +291,17 @@ public class MainTests {
   // @Example
   boolean checkGenCandidatesConstructors() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesConstructors" + "::inicio");
+      Severity.TRACE,
+      "checkGenCandidatesConstructors" + "::inicio");
 
-    Arbitrary<Constructor> b = mCore.genCandidatesConstructors(
-        "br.edu." + "ifsc.javargexamples.B");
+    Arbitrary < Constructor > b = mCore.genCandidatesConstructors(
+      "br.edu." + "ifsc.javargexamples.B");
 
     System.out.println("Candidatos Constructors: " + b.sample());
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesConstructors" + "::fim");
+      Severity.TRACE,
+      "checkGenCandidatesConstructors" + "::fim");
 
     return true;
   }
@@ -317,9 +317,9 @@ public class MainTests {
     MessageLogger.log(Severity.TRACE, "checkGenExpression::inicio");
 
     try {
-      Arbitrary<Expression> e = mCore.genExpression(
-          mCtx,
-          JavaTypeTranslator.convertToParserType("int"));
+      Arbitrary < Expression > e = mCore.genExpression(
+        mCtx,
+        JavaTypeTranslator.convertToParserType("int"));
       System.out.println("Expressão gerada: " + e.sample());
     } catch (Exception ex) {
       System.out.println("Erro: " + ex.getMessage());
@@ -340,12 +340,12 @@ public class MainTests {
   // @Example
   boolean checkGenAttributeAccess() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenAtributteAcess" + "::inicio");
+      Severity.TRACE,
+      "checkGenAtributteAcess" + "::inicio");
 
-    Arbitrary<FieldAccessExpr> e = mCore.genAttributeAccess(
-        mCtx,
-        JavaTypeTranslator.convertToParserType("String"));
+    Arbitrary < FieldAccessExpr > e = mCore.genAttributeAccess(
+      mCtx,
+      JavaTypeTranslator.convertToParserType("String"));
 
     System.out.println("Acesso gerado: " + e.sample());
 
@@ -364,10 +364,10 @@ public class MainTests {
   boolean checkGenUpCast() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenUpCast" + "::inicio");
 
-    Arbitrary<CastExpr> e = mCore.genUpCast(
-        mCtx,
-        JavaTypeTranslator.convertToParserType(
-            "br.edu.ifsc." + "javargexamples.Aextend"));
+    Arbitrary < CastExpr > e = mCore.genUpCast(
+      mCtx,
+      JavaTypeTranslator.convertToParserType(
+        "br.edu.ifsc." + "javargexamples.Aextend"));
 
     System.out.println("CheckGenUpCast: " + e.sample());
 
@@ -385,9 +385,9 @@ public class MainTests {
   boolean checkGenVar() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenVar" + "::inicio");
 
-    Arbitrary<NameExpr> e = mCore.genVar(
-        mCtx,
-        JavaTypeTranslator.convertToParserType("int"));
+    Arbitrary < NameExpr > e = mCore.genVar(
+      mCtx,
+      JavaTypeTranslator.convertToParserType("int"));
 
     System.out.println("checkGenVar: " + e.sample());
 
@@ -405,8 +405,8 @@ public class MainTests {
   boolean checkSuperTypes() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkSuperTypes" + "::inicio");
 
-    List<Class> b = mCT.superTypes(
-        "br.edu.ifsc." + "javargexamples.AextendExtend");
+    List < Class > b = mCT.superTypes(
+      "br.edu.ifsc." + "javargexamples.AextendExtend");
 
     b.forEach(i -> {
       System.out.println("SuperTypes: " + i);
@@ -427,7 +427,7 @@ public class MainTests {
   boolean checkSubTypes() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkSubTypes" + "::inicio");
 
-    List<Class> b = mCT.subTypes("br.edu.ifsc." + "javargexamples.A");
+    List < Class > b = mCT.subTypes("br.edu.ifsc." + "javargexamples.A");
 
     b.forEach(i -> {
       System.out.println("subTypes: " + i.toString());
@@ -450,7 +450,7 @@ public class MainTests {
   boolean checkSubTypes2() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkSubTypes" + "::inicio");
 
-    List<Class> b = mCT.subTypes2("br.edu.ifsc." + "javargexamples.A");
+    List < Class > b = mCT.subTypes2("br.edu.ifsc." + "javargexamples.A");
 
     b.forEach(i -> {
       System.out.println("subTypes: " + i.toString());
@@ -470,17 +470,17 @@ public class MainTests {
   // @Example
   boolean checkGenCandidateUpCast() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidateUpCast" + "::inicio");
+      Severity.TRACE,
+      "checkGenCandidateUpCast" + "::inicio");
 
-    Arbitrary<Class> b = mCore.genCandidateUpCast(
-        "br.edu.ifsc." + "javargexamples.A");
+    Arbitrary < Class > b = mCore.genCandidateUpCast(
+      "br.edu.ifsc." + "javargexamples.A");
 
     System.out.println("Candidatos UpCast: " + b.sample().getName());
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidateUpCast" + "::final");
+      Severity.TRACE,
+      "checkGenCandidateUpCast" + "::final");
 
     return true;
   }
@@ -495,25 +495,25 @@ public class MainTests {
    * of writing to console everytime the test is ran
    *
    */
-   @Example
-    boolean checkGenBlockStmt() throws ClassNotFoundException, IOException {
+  @Example
+  boolean checkGenBlockStmt() throws ClassNotFoundException, IOException {
     MessageLogger.log(Severity.TRACE, "checkGenBlockStmt::inicio");
 
-    Arbitrary<BlockStmt> e = mStmt.genBlockStmt(mCtx);
+    Arbitrary < BlockStmt > e = mStmt.genBlockStmt(mCtx);
 
     System.out.println("BlockStmt: " + e.sample());
 
     ClassOrInterfaceDeclaration classe = mSkeleton
-        .getClassByName("MainClass")
-        .get();
+      .getClassByName("MainClass")
+      .get();
 
-    List<MethodDeclaration> ms = classe.getMethods();
+    List < MethodDeclaration > ms = classe.getMethods();
 
     MethodDeclaration m = ms.get(0);
 
     m.setBody(e.sample());
 
-//    imprimiDados(mSkeleton);;
+    //    imprimiDados(mSkeleton);;
 
     compila("MainClass.java");
 
@@ -533,7 +533,7 @@ public class MainTests {
   boolean checkGenVarDeclAssign() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenVarDeclaration::inicio");
 
-    Arbitrary<VariableDeclarationExpr> e = mStmt.genVarDeclAssign(mCtx);
+    Arbitrary < VariableDeclarationExpr > e = mStmt.genVarDeclAssign(mCtx);
 
     System.out.println("checkGengenVarDeclaration: " + e.sample());
 
@@ -552,7 +552,7 @@ public class MainTests {
   boolean checkGenVarDecl() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenVarDeclaration::inicio");
 
-    Arbitrary<VariableDeclarationExpr> e = mStmt.genVarDecl(mCtx);
+    Arbitrary < VariableDeclarationExpr > e = mStmt.genVarDecl(mCtx);
 
     System.out.println("checkGengenVarDeclaration: " + e.sample());
 
@@ -570,7 +570,7 @@ public class MainTests {
   boolean checkGenIfStmt() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenIfStmt::inicio");
 
-    Arbitrary<IfStmt> e = mStmt.genIfStmt(mCtx);
+    Arbitrary < IfStmt > e = mStmt.genIfStmt(mCtx);
 
     System.out.println("checkGenIfStmt: " + e.sample());
 
@@ -589,7 +589,7 @@ public class MainTests {
   boolean checkWhileStmt() {
     MessageLogger.log(Severity.TRACE, "checkWhileStmt::inicio");
 
-    Arbitrary<WhileStmt> e = mStmt.genWhileStmt(mCtx);
+    Arbitrary < WhileStmt > e = mStmt.genWhileStmt(mCtx);
 
     System.out.println("checkWhileStmt: " + e.sample());
 
@@ -608,20 +608,20 @@ public class MainTests {
   boolean checkGenStatement() throws ClassNotFoundException, IOException {
     MessageLogger.log(Severity.TRACE, "checkGenStatement::inicio");
 
-    Arbitrary<Statement> e = mStmt.genStatement(mCtx);
+    Arbitrary < Statement > e = mStmt.genStatement(mCtx);
 
     System.out.println("checkGenStatement: " + e.sample());
 
     System.out.println(mSkeleton.getClassByName("MainClass"));
 
     ClassOrInterfaceDeclaration classe = mSkeleton
-        .getClassByName("MainClass")
-        .get();
+      .getClassByName("MainClass")
+      .get();
 
     classe.addMethod(
-        "main",
-        Modifier.publicModifier().getKeyword(),
-        Modifier.Keyword.STATIC);
+      "main",
+      Modifier.publicModifier().getKeyword(),
+      Modifier.Keyword.STATIC);
     // mSkeleton.addInterface(e.sample().toString());
 
     classe.addInitializer().addAndGetStatement(e.sample());
@@ -642,7 +642,7 @@ public class MainTests {
   boolean checkGenExpressionStmt() {
     MessageLogger.log(Severity.TRACE, "checkGenExpressionStmt::inicio");
 
-    Arbitrary<ExpressionStmt> e = mStmt.genExpressionStmt(mCtx);
+    Arbitrary < ExpressionStmt > e = mStmt.genExpressionStmt(mCtx);
 
     System.out.println("checkGenExpressionStmt: " + e.sample());
 
@@ -661,7 +661,7 @@ public class MainTests {
   boolean checkGenLogiExpression() {
     MessageLogger.log(Severity.TRACE, "checkGenLogiExpression::inicio");
 
-    Arbitrary<BinaryExpr> e = mOperator.genLogiExpression(mCtx);
+    Arbitrary < BinaryExpr > e = mOperator.genLogiExpression(mCtx);
 
     System.out.println("checkGenLogiExpression: " + e.sample());
 
@@ -681,7 +681,7 @@ public class MainTests {
   boolean checkGenRelaExpression() {
     MessageLogger.log(Severity.TRACE, "checkGenRelaExpression::inicio");
 
-    Arbitrary<BinaryExpr> e = mOperator.genRelaExpression(mCtx);
+    Arbitrary < BinaryExpr > e = mOperator.genRelaExpression(mCtx);
 
     System.out.println("checkGenRelaExpression: " + e.sample());
 
@@ -701,9 +701,9 @@ public class MainTests {
   boolean checkGenArithExpression() {
     MessageLogger.log(Severity.TRACE, "checkGenArithExpression::inicio");
 
-    Arbitrary<BinaryExpr> e = mOperator.genArithExpression(
-        mCtx,
-        JavaTypeTranslator.convertToParserType("int"));
+    Arbitrary < BinaryExpr > e = mOperator.genArithExpression(
+      mCtx,
+      JavaTypeTranslator.convertToParserType("int"));
 
     System.out.println("checkGenArithExpression: " + e.sample());
 
@@ -721,7 +721,7 @@ public class MainTests {
   boolean checkGenStatementList() {
     MessageLogger.log(Severity.TRACE, "checkGenStatementList::inicio");
 
-    Arbitrary<NodeList<Statement>> e = mStmt.genStatementList(mCtx);
+    Arbitrary < NodeList < Statement >> e = mStmt.genStatementList(mCtx);
 
     System.out.println("checkGenStatementList: " + e.sample());
 
@@ -739,10 +739,10 @@ public class MainTests {
   // @Property(tries = 10)
   boolean checkGenVarDeclarationStmt() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenVarDeclarationStmt::inicio");
+      Severity.TRACE,
+      "checkGenVarDeclarationStmt::inicio");
 
-    Arbitrary<ExpressionStmt> e = mStmt.genVarDeclarationStmt(mCtx);
+    Arbitrary < ExpressionStmt > e = mStmt.genVarDeclarationStmt(mCtx);
 
     System.out.println("checkGenVarDeclarationStmt: " + e.sample());
 
@@ -760,7 +760,7 @@ public class MainTests {
   boolean checkGenVarAssingStmt() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenVarAssingStmt::inicio");
 
-    Arbitrary<VariableDeclarationExpr> e = mStmt.genVarAssingStmt(mCtx);
+    Arbitrary < VariableDeclarationExpr > e = mStmt.genVarAssingStmt(mCtx);
 
     System.out.println("checkGenVarAssingStmt: " + e.sample());
 
@@ -778,7 +778,7 @@ public class MainTests {
   boolean checkGenTypeAssingStmt() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
-    Arbitrary<AssignExpr> e = mStmt.genTypeAssingStmt(mCtx);
+    Arbitrary < AssignExpr > e = mStmt.genTypeAssingStmt(mCtx);
 
     System.out.println("checkGenTypeAssingStmt: " + e.sample());
 
@@ -798,7 +798,7 @@ public class MainTests {
   boolean checkGenFor() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
-    Arbitrary<ForStmt> e = mStmt.genForStmt(mCtx);
+    Arbitrary < ForStmt > e = mStmt.genForStmt(mCtx);
     // mStmt.genForStmt(mCtx);
     System.out.println("checkGenTypeAssingStmt: " + e.sample());
 
@@ -816,7 +816,7 @@ public class MainTests {
   boolean checkGenList() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenTypeAssingStmt::inicio");
 
-    List<Statement> e = mStmt.genList(mCtx);
+    List < Statement > e = mStmt.genList(mCtx);
     // mStmt.genForStmt(mCtx);
     System.out.println("checkGenTypeAssingStmt: " + e.get(0));
 
@@ -834,11 +834,11 @@ public class MainTests {
   boolean checkGenLambdaExpr() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkGenLambdaExpr::inicio");
 
-    Arbitrary<LambdaExpr> e = mCore.genLambdaExpr(mCtx);
+    Arbitrary < LambdaExpr > e = mCore.genLambdaExpr(mCtx);
     String expr = e.sample().toString();
 
-    List<String> asd = mIT.getCandidateInterfaces(
-        loadImports().iterator().next());
+    List < String > asd = mIT.getCandidateInterfaces(
+      loadImports().iterator().next());
 
     // System.out.println(expr.toString());
     // for (String a : asd) {
@@ -849,18 +849,18 @@ public class MainTests {
 
     for (int i = 0; i < expr.split(" ").length; i++) {
       switch (i) {
-        case 0:
-          ret = ret.concat("<" + expr.split(" ")[i] + ">");
-          break;
-        case 1:
-          ret = ret.concat(" " + expr.split(" ")[i] + " ");
-          break;
-        case 2:
-          ret = ret.concat("= () ->");
-          break;
-        default:
-          ret = ret.concat(" " + expr.split(" ")[i]);
-          break;
+      case 0:
+        ret = ret.concat("<" + expr.split(" ")[i] + ">");
+        break;
+      case 1:
+        ret = ret.concat(" " + expr.split(" ")[i] + " ");
+        break;
+      case 2:
+        ret = ret.concat("= () ->");
+        break;
+      default:
+        ret = ret.concat(" " + expr.split(" ")[i]);
+        break;
       }
     }
     ret = ret.concat(";");
@@ -883,16 +883,16 @@ public class MainTests {
   @Property(tries = 1)
   boolean checkGenCandidatesInterfaces() throws ClassNotFoundException {
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesInterfaces" + "::inicio");
+      Severity.TRACE,
+      "checkGenCandidatesInterfaces" + "::inicio");
 
-    List<String> candidates = mIT.getCandidateInterfaces(loadImports().iterator().next());
+    List < String > candidates = mIT.getCandidateInterfaces(loadImports().iterator().next());
 
     System.out.println("Candidatos Interfaces: " + candidates.toString());
 
     MessageLogger.log(
-        Severity.TRACE,
-        "checkGenCandidatesInterfaces" + "::fim");
+      Severity.TRACE,
+      "checkGenCandidatesInterfaces" + "::fim");
 
     return true;
   }

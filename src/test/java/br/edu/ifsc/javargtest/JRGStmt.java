@@ -42,7 +42,7 @@ public class JRGStmt {
 
   private TypeGenerator mBase;
 
-  private List<String> mValidNames;
+  private List < String > mValidNames;
 
   private JRGCore mCore;
 
@@ -62,7 +62,7 @@ public class JRGStmt {
 
     mOperator = new JRGOperator(mCT, mBase, mCore);
 
-    List<String> tempNames = Arrays.asList(
+    List < String > tempNames = Arrays.asList(
       "a",
       "b",
       "c",
@@ -90,10 +90,10 @@ public class JRGStmt {
       "y",
       "z"
     );
-    mValidNames = new LinkedList<>(tempNames);
+    mValidNames = new LinkedList < > (tempNames);
 
-    for (String l1 : tempNames) {
-      for (String l2 : tempNames) {
+    for (String l1: tempNames) {
+      for (String l2: tempNames) {
         String letra = "";
         letra = l1 + l2;
         mValidNames.add(letra);
@@ -105,15 +105,15 @@ public class JRGStmt {
 
   //ExpressionStmt
   @Provide
-  public Arbitrary<VariableDeclarationExpr> genVarDecl(Map<String, String> ctx)
-    throws ClassNotFoundException {
+  public Arbitrary < VariableDeclarationExpr > genVarDecl(Map < String, String > ctx)
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclaration::inicio");
 
-    Arbitrary<PrimitiveType> pt = mBase
+    Arbitrary < PrimitiveType > pt = mBase
       .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
+    Arbitrary < Type > t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     String v = Arbitraries.of(mValidNames).sample();
 
@@ -130,38 +130,38 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<Statement> genStatement(Map<String, String> ctx) {
+  public Arbitrary < Statement > genStatement(Map < String, String > ctx) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genStatement::inicio");
 
     try {
       if (mFuel > 0) {
         mFuel--;
         //IF_STMT, WHILE_STMT,FOR_STMT,
-        Arbitrary<Integer> s = Arbitraries.of(
+        Arbitrary < Integer > s = Arbitraries.of(
           IF_STMT,
           VAR_DECL_STMT,
           VAR_DECLARATION_STMT
         );
         switch (s.sample()) {
-          case IF_STMT:
-            return Arbitraries.oneOf(genIfStmt(ctx));
+        case IF_STMT:
+          return Arbitraries.oneOf(genIfStmt(ctx));
           //case WHILE_STMT: return Arbitraries.oneOf(genWhileStmt(ctx));
-          case VAR_DECL_STMT:
-            return Arbitraries.oneOf(genVarDeclStmt(ctx));
-          case VAR_DECLARATION_STMT:
-            return Arbitraries.oneOf(genVarDeclarationStmt(ctx));
+        case VAR_DECL_STMT:
+          return Arbitraries.oneOf(genVarDeclStmt(ctx));
+        case VAR_DECLARATION_STMT:
+          return Arbitraries.oneOf(genVarDeclarationStmt(ctx));
           //case FOR_STMT: return Arbitraries.oneOf(genForStmt(ctx));
         }
       } else {
-        Arbitrary<Integer> s = Arbitraries.of(
+        Arbitrary < Integer > s = Arbitraries.of(
           VAR_DECL_STMT,
           VAR_DECLARATION_STMT
         );
         switch (s.sample()) {
-          case VAR_DECLARATION_STMT:
-            return Arbitraries.oneOf(genVarDeclarationStmt(ctx));
-          case VAR_DECL_STMT:
-            return Arbitraries.oneOf(genVarDeclStmt(ctx));
+        case VAR_DECLARATION_STMT:
+          return Arbitraries.oneOf(genVarDeclarationStmt(ctx));
+        case VAR_DECL_STMT:
+          return Arbitraries.oneOf(genVarDeclStmt(ctx));
         }
       }
     } catch (ClassNotFoundException ex) {
@@ -174,15 +174,15 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<NodeList<Statement>> genStatementList(
-    Map<String, String> ctx
+  public Arbitrary < NodeList < Statement >> genStatementList(
+    Map < String, String > ctx
   ) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genStatementList::inicio");
 
     int n = Arbitraries.integers().between(1, MAX_STMT).sample();
     //List<Statement> exs =  new ArrayList<>();
 
-    NodeList<Statement> nodes = new NodeList<>();
+    NodeList < Statement > nodes = new NodeList < > ();
     for (int i = 0; i < n; i++) {
       nodes.add(genStatement(ctx).sample());
     }
@@ -193,10 +193,10 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<BlockStmt> genBlockStmt(Map<String, String> ctx) {
+  public Arbitrary < BlockStmt > genBlockStmt(Map < String, String > ctx) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genBlockStmt::inicio");
 
-    Arbitrary<NodeList<Statement>> l = genStatementList(ctx);
+    Arbitrary < NodeList < Statement >> l = genStatementList(ctx);
 
     BlockStmt b = new BlockStmt(l.sample());
 
@@ -207,20 +207,20 @@ public class JRGStmt {
 
   //ExpressionStmt
   @Provide
-  public Arbitrary<VariableDeclarationExpr> genVarDeclAssign(
-    Map<String, String> ctx
+  public Arbitrary < VariableDeclarationExpr > genVarDeclAssign(
+    Map < String, String > ctx
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
-    Arbitrary<PrimitiveType> pt = mBase
+    Arbitrary < PrimitiveType > pt = mBase
       .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
+    Arbitrary < Type > t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     Type tp = t.sample();
 
-    Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
+    Arbitrary < Expression > e = mCore.genExpression(ctx, tp);
 
     String v = Arbitraries.of(mValidNames).sample();
 
@@ -237,17 +237,17 @@ public class JRGStmt {
 
   //
   @Provide
-  public Arbitrary<VariableDeclarationExpr> genVarAssingStmt(
-    Map<String, String> ctx
+  public Arbitrary < VariableDeclarationExpr > genVarAssingStmt(
+    Map < String, String > ctx
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     String key = Arbitraries.of(ctx.keySet()).sample();
 
     String value = ctx.get(key);
 
     Type tp = JavaTypeTranslator.convertToParserType(value);
 
-    Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
+    Arbitrary < Expression > e = mCore.genExpression(ctx, tp);
 
     return e.map(
       obj -> new VariableDeclarationExpr(new VariableDeclarator(tp, key, obj))
@@ -255,15 +255,15 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<AssignExpr> genTypeAssingStmt(Map<String, String> ctx)
-    throws ClassNotFoundException {
+  public Arbitrary < AssignExpr > genTypeAssingStmt(Map < String, String > ctx)
+  throws ClassNotFoundException {
     String key = Arbitraries.of(ctx.keySet()).sample();
 
     String value = ctx.get(key);
 
     Type tp = JavaTypeTranslator.convertToParserType(value);
 
-    Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
+    Arbitrary < Expression > e = mCore.genExpression(ctx, tp);
 
     return e.map(
       obj -> new AssignExpr(e.sample(), obj, AssignExpr.Operator.ASSIGN)
@@ -271,13 +271,13 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<IfStmt> genIfStmt(Map<String, String> ctx) {
+  public Arbitrary < IfStmt > genIfStmt(Map < String, String > ctx) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genIfStmt::inicio");
 
-    Map<String, String> newCtxIf = new HashMap<String, String>(ctx);
-    Map<String, String> newCtxElse = new HashMap<String, String>(ctx);
+    Map < String, String > newCtxIf = new HashMap < String, String > (ctx);
+    Map < String, String > newCtxElse = new HashMap < String, String > (ctx);
 
-    Arbitrary<Expression> e = mCore.genExpressionOperator(
+    Arbitrary < Expression > e = mCore.genExpressionOperator(
       ctx,
       PrimitiveType.booleanType()
     );
@@ -286,21 +286,21 @@ public class JRGStmt {
 
     return e.map(
       exp ->
-        new IfStmt(
-          exp,
-          genBlockStmt(newCtxIf).sample(),
-          genBlockStmt(newCtxElse).sample()
-        )
+      new IfStmt(
+        exp,
+        genBlockStmt(newCtxIf).sample(),
+        genBlockStmt(newCtxElse).sample()
+      )
     );
   }
 
   @Provide
-  public Arbitrary<WhileStmt> genWhileStmt(Map<String, String> ctx) {
+  public Arbitrary < WhileStmt > genWhileStmt(Map < String, String > ctx) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genWhileStmt::inicio");
 
-    Map<String, String> newCtx = new HashMap<String, String>(ctx);
+    Map < String, String > newCtx = new HashMap < String, String > (ctx);
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       newCtx,
       PrimitiveType.booleanType()
     );
@@ -308,19 +308,19 @@ public class JRGStmt {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genWhileStmt::fim");
     return e.map(
       exp ->
-        new WhileStmt(
-          exp.asVariableDeclarationExpr(),
-          genBlockStmt(newCtx).sample()
-        )
+      new WhileStmt(
+        exp.asVariableDeclarationExpr(),
+        genBlockStmt(newCtx).sample()
+      )
     );
   }
 
   @Provide
-  public Arbitrary<ExpressionStmt> genExpressionStmt(Map<String, String> ctx) {
+  public Arbitrary < ExpressionStmt > genExpressionStmt(Map < String, String > ctx) {
     //@TODO: Sortear o tipo aleatoriamente e passar para genExpression
-    Arbitrary<PrimitiveType.Primitive> t = mBase.generatePrimitiveTypes();
+    Arbitrary < PrimitiveType.Primitive > t = mBase.generatePrimitiveTypes();
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
       JavaTypeTranslator.convertToParserType(t.sample().toString())
     );
@@ -329,68 +329,68 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<ExpressionStmt> genVarDeclarationStmt(
-    Map<String, String> ctx
+  public Arbitrary < ExpressionStmt > genVarDeclarationStmt(
+    Map < String, String > ctx
   )
-    throws ClassNotFoundException {
-    Arbitrary<VariableDeclarationExpr> e = genVarDeclAssign(ctx);
+  throws ClassNotFoundException {
+    Arbitrary < VariableDeclarationExpr > e = genVarDeclAssign(ctx);
 
     return e.map(exp -> new ExpressionStmt(exp));
   }
 
   @Provide
-  public Arbitrary<ExpressionStmt> genVarDeclStmt(Map<String, String> ctx)
-    throws ClassNotFoundException {
-    Arbitrary<VariableDeclarationExpr> e = genVarDecl(ctx);
+  public Arbitrary < ExpressionStmt > genVarDeclStmt(Map < String, String > ctx)
+  throws ClassNotFoundException {
+    Arbitrary < VariableDeclarationExpr > e = genVarDecl(ctx);
 
     return e.map(exp -> new ExpressionStmt(exp));
   }
 
   @Provide
   //Arbitrary<ForStmt>
-  public Arbitrary<ForStmt> genForStmt(Map<String, String> ctx)
-    throws ClassNotFoundException {
+  public Arbitrary < ForStmt > genForStmt(Map < String, String > ctx)
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genForStmt::inicio");
 
-    Arbitrary<VariableDeclarationExpr> variableD = genVarDeclAssignInt(ctx);
+    Arbitrary < VariableDeclarationExpr > variableD = genVarDeclAssignInt(ctx);
 
     VariableDeclarationExpr variable = variableD.sample();
 
-    Arbitrary<LiteralExpr> intAll = Arbitraries
+    Arbitrary < LiteralExpr > intAll = Arbitraries
       .integers()
       .between(25, 100)
       .map(i -> new IntegerLiteralExpr(String.valueOf(i)));
 
-    Arbitrary<LiteralExpr> intLimited = Arbitraries
+    Arbitrary < LiteralExpr > intLimited = Arbitraries
       .integers()
       .between(1, 5)
       .map(i -> new IntegerLiteralExpr(String.valueOf(i)));
 
-    Map<String, String> newCtx = new HashMap<String, String>(ctx);
+    Map < String, String > newCtx = new HashMap < String, String > (ctx);
 
     System.out.println(variable.getVariable(0));
 
-    Arbitrary<Expression> compare = mCore.genExpressionOperatorFor(
+    Arbitrary < Expression > compare = mCore.genExpressionOperatorFor(
       newCtx,
       PrimitiveType.intType(),
       variable.getVariable(0),
       intAll
     );
 
-    Arbitrary<Expression> e = mCore.genExpression(ctx, PrimitiveType.intType());
+    Arbitrary < Expression > e = mCore.genExpression(ctx, PrimitiveType.intType());
 
-    Arbitrary<BlockStmt> a = genBlockStmt(newCtx);
+    Arbitrary < BlockStmt > a = genBlockStmt(newCtx);
 
-    NodeList<Expression> nodes = new NodeList<>(variable);
+    NodeList < Expression > nodes = new NodeList < > (variable);
 
-    Arbitrary<Expression> atualiza = mCore.genExpressionMatchOperatorFor(
+    Arbitrary < Expression > atualiza = mCore.genExpressionMatchOperatorFor(
       newCtx,
       PrimitiveType.intType(),
       variable.getVariable(0),
       intLimited
     );
 
-    NodeList<Expression> nodesAtu = new NodeList<>(atualiza.sample());
+    NodeList < Expression > nodesAtu = new NodeList < > (atualiza.sample());
 
     MessageLogger.log(MessageLogger.Severity.TRACE, "genForStmt::fim");
     return e.map(
@@ -399,24 +399,24 @@ public class JRGStmt {
   }
 
   @Provide
-  public Arbitrary<VariableDeclarationExpr> genVarDeclAssignInt(
-    Map<String, String> ctx
+  public Arbitrary < VariableDeclarationExpr > genVarDeclAssignInt(
+    Map < String, String > ctx
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
-    Arbitrary<PrimitiveType> pt = mBase
+    Arbitrary < PrimitiveType > pt = mBase
       .generatePrimitiveIntTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(pt);
+    Arbitrary < Type > t = Arbitraries.oneOf(pt);
 
     Type tp = t.sample();
 
-    Arbitrary<Expression> e = mCore.genExpression(ctx, tp);
+    Arbitrary < Expression > e = mCore.genExpression(ctx, tp);
 
     String v = Arbitraries.of(mValidNames).sample();
 
-    Arbitrary<LiteralExpr> inteiro = Arbitraries
+    Arbitrary < LiteralExpr > inteiro = Arbitraries
       .integers()
       .between(1, 10)
       .map(i -> new IntegerLiteralExpr(String.valueOf(i)));
@@ -429,21 +429,21 @@ public class JRGStmt {
 
     return e.map(
       obj ->
-        new VariableDeclarationExpr(
-          new VariableDeclarator(tp, v, inteiro.sample())
-        )
+      new VariableDeclarationExpr(
+        new VariableDeclarator(tp, v, inteiro.sample())
+      )
     );
   }
 
   @Provide
-  public List<Statement> genList(Map<String, String> ctx)
-    throws ClassNotFoundException {
+  public List < Statement > genList(Map < String, String > ctx)
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVarDeclarator::inicio");
 
-    List<Statement> a = new ArrayList<>();
+    List < Statement > a = new ArrayList < > ();
 
     for (int i = 0; i < 100; i++) {
-      Arbitrary<Statement> e = genStatement(ctx);
+      Arbitrary < Statement > e = genStatement(ctx);
       a.add(e.sample());
     }
 

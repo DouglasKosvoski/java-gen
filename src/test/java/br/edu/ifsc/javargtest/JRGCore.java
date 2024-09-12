@@ -43,7 +43,7 @@ public class JRGCore {
 
   //private Map<String, String> mCtx;
 
-  private List<String> mValidNames;
+  private List < String > mValidNames;
 
   int mFuel;
 
@@ -62,9 +62,9 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Expression> genExpression(Map<String, String> ctx, Type t) {
-    Arbitrary<Expression> e;
-    List<Arbitrary<Expression>> cand = new ArrayList<>();
+  public Arbitrary < Expression > genExpression(Map < String, String > ctx, Type t) {
+    Arbitrary < Expression > e;
+    List < Arbitrary < Expression >> cand = new ArrayList < > ();
 
     try {
       if (mFuel > 0) { // Permite a recursão até certo ponto
@@ -146,9 +146,9 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<NodeList<Expression>> genExpressionList(
-    Map<String, String> ctx,
-    List<Type> types
+  public Arbitrary < NodeList < Expression >> genExpressionList(
+    Map < String, String > ctx,
+    List < Type > types
   ) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genExpressionList::inicio");
 
@@ -156,13 +156,13 @@ public class JRGCore {
       MessageLogger.Severity.TRACE,
       "genExpressionList::types" + types.toString()
     );
-    List<Expression> exs = types
+    List < Expression > exs = types
       .stream()
       .map(t -> genExpression(ctx, t))
       .map(e -> e.sample())
       .collect(Collectors.toList());
 
-    NodeList<Expression> nodes = new NodeList<>(exs);
+    NodeList < Expression > nodes = new NodeList < > (exs);
 
     MessageLogger.log(MessageLogger.Severity.TRACE, "genExpressionList::fim");
 
@@ -171,18 +171,18 @@ public class JRGCore {
 
   @Provide
   //public Arbitrary<ObjectCreationExpr> genObjectCreation(Type t) throws ClassNotFoundException {
-  public Arbitrary<Expression> genObjectCreation(
-    Map<String, String> ctx,
+  public Arbitrary < Expression > genObjectCreation(
+    Map < String, String > ctx,
     Type t
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genObjectCreation::inicio");
 
-    List<Constructor> constrs;
+    List < Constructor > constrs;
 
     constrs = mCT.getClassConstructors(t.asString());
 
-    Arbitrary<Constructor> c = Arbitraries.of(constrs);
+    Arbitrary < Constructor > c = Arbitraries.of(constrs);
 
     Constructor constr = c.sample();
 
@@ -193,14 +193,14 @@ public class JRGCore {
 
     Class[] params = constr.getParameterTypes();
 
-    List<Class> ps = Arrays.asList(params);
+    List < Class > ps = Arrays.asList(params);
 
     MessageLogger.log(
       MessageLogger.Severity.DEBUG,
       "genObjectCreation::ps " + ps
     );
 
-    List<Type> types = ps
+    List < Type > types = ps
       .stream()
       .map(
         tname -> JavaTypeTranslator.convertToParserType(tname.getName())
@@ -219,17 +219,17 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<FieldAccessExpr> genAttributeAccess(
-    Map<String, String> ctx,
+  public Arbitrary < FieldAccessExpr > genAttributeAccess(
+    Map < String, String > ctx,
     Type t
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     MessageLogger.log(
       MessageLogger.Severity.TRACE,
       "genAttributeAccess::inicio"
     );
 
-    Arbitrary<Field> f = genCandidatesField(t.asString());
+    Arbitrary < Field > f = genCandidatesField(t.asString());
 
     Field field = f.sample();
 
@@ -243,7 +243,7 @@ public class JRGCore {
       "genAttributeAccess::Class: " + field.getDeclaringClass().getName()
     );
 
-    Arbitrary<Expression> e = genExpression(
+    Arbitrary < Expression > e = genExpression(
       ctx,
       JavaTypeTranslator.convertToParserType(
         field.getDeclaringClass().getName()
@@ -256,17 +256,17 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<MethodCallExpr> genMethodInvokation(
-    Map<String, String> ctx,
+  public Arbitrary < MethodCallExpr > genMethodInvokation(
+    Map < String, String > ctx,
     Type t
   )
-    throws ClassNotFoundException {
+  throws ClassNotFoundException {
     MessageLogger.log(
       MessageLogger.Severity.TRACE,
       "genMethodInvokation:" + ":inicio"
     );
 
-    Arbitrary<Method> methods;
+    Arbitrary < Method > methods;
 
     MessageLogger.log(
       MessageLogger.Severity.DEBUG,
@@ -279,21 +279,21 @@ public class JRGCore {
 
     Class[] params = method.getParameterTypes();
 
-    List<Class> ps = Arrays.asList(params);
+    List < Class > ps = Arrays.asList(params);
 
     MessageLogger.log(
       MessageLogger.Severity.DEBUG,
       "genObjectCreation:" + ":method " + method.toString()
     );
 
-    Arbitrary<Expression> e = genExpression(
+    Arbitrary < Expression > e = genExpression(
       ctx,
       JavaTypeTranslator.convertToParserType(
         method.getDeclaringClass().getName()
       )
     );
 
-    List<Type> types = ps
+    List < Type > types = ps
       .stream()
       .map(
         tname -> JavaTypeTranslator.convertToParserType(tname.getName())
@@ -307,10 +307,10 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<NameExpr> genVar(Map<String, String> ctx, Type t) {
+  public Arbitrary < NameExpr > genVar(Map < String, String > ctx, Type t) {
     MessageLogger.log(MessageLogger.Severity.TRACE, "genVar::inicio");
 
-    List<NameExpr> collect = ctx
+    List < NameExpr > collect = ctx
       .entrySet()
       .stream()
       .filter(e -> e.getValue().equals(t.asString()))
@@ -323,32 +323,32 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<CastExpr> genUpCast(Map<String, String> ctx, Type t)
-    throws ClassNotFoundException {
-    List<Class> st = mCT.subTypes2(t.asString());
+  public Arbitrary < CastExpr > genUpCast(Map < String, String > ctx, Type t)
+  throws ClassNotFoundException {
+    List < Class > st = mCT.subTypes2(t.asString());
 
-    Arbitrary<Class> sc = Arbitraries.of(st);
+    Arbitrary < Class > sc = Arbitraries.of(st);
 
     Class c = sc.sample();
 
-    Arbitrary<Expression> e = genExpression(
+    Arbitrary < Expression > e = genExpression(
       ctx,
       JavaTypeTranslator.convertToParserType(c.getName())
     );
 
     return e.map(
       obj ->
-        new CastExpr(
-          JavaTypeTranslator.convertToParserType(t.asString()),
-          obj
-        )
+      new CastExpr(
+        JavaTypeTranslator.convertToParserType(t.asString()),
+        obj
+      )
     );
   }
 
   @Provide
-  public Arbitrary<Method> genCandidatesMethods(String type)
-    throws ClassNotFoundException {
-    List<Method> candidatesMethods;
+  public Arbitrary < Method > genCandidatesMethods(String type)
+  throws ClassNotFoundException {
+    List < Method > candidatesMethods;
 
     candidatesMethods = mCT.getCandidateMethods(type);
 
@@ -356,9 +356,9 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Field> genCandidatesField(String type)
-    throws ClassNotFoundException {
-    List<Field> candidatesField;
+  public Arbitrary < Field > genCandidatesField(String type)
+  throws ClassNotFoundException {
+    List < Field > candidatesField;
 
     candidatesField = mCT.getCandidateFields(type);
 
@@ -366,9 +366,9 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Constructor> genCandidatesConstructors(String type)
-    throws ClassNotFoundException {
-    List<Constructor> candidatesConstructors;
+  public Arbitrary < Constructor > genCandidatesConstructors(String type)
+  throws ClassNotFoundException {
+    List < Constructor > candidatesConstructors;
 
     candidatesConstructors = mCT.getCandidateConstructors(type);
 
@@ -376,9 +376,9 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Class> genCandidateUpCast(String type)
-    throws ClassNotFoundException {
-    List<Class> upCast;
+  public Arbitrary < Class > genCandidateUpCast(String type)
+  throws ClassNotFoundException {
+    List < Class > upCast;
 
     upCast = mCT.subTypes2(type);
 
@@ -386,17 +386,17 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<LambdaExpr> genLambdaExpr(Map<String, String> ctx)
-    throws ClassNotFoundException {
-    Arbitrary<PrimitiveType> pt = mBase
+  public Arbitrary < LambdaExpr > genLambdaExpr(Map < String, String > ctx)
+  throws ClassNotFoundException {
+    Arbitrary < PrimitiveType > pt = mBase
       .generatePrimitiveTypes()
       .map(t -> new PrimitiveType(t));
 
-    Arbitrary<Type> t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
+    Arbitrary < Type > t = Arbitraries.oneOf(mBase.generateClassOrInterfaceTypes(), pt);
 
     Type tp = t.sample();
 
-    Arbitrary<Expression> e = genExpression(ctx, tp);
+    Arbitrary < Expression > e = genExpression(ctx, tp);
 
     String a = Arbitraries.of(mValidNames).sample();
 
@@ -404,13 +404,13 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Expression> genExpressionOperator(
-    Map<String, String> ctx,
+  public Arbitrary < Expression > genExpressionOperator(
+    Map < String, String > ctx,
     Type t
   ) {
-    Arbitrary<Expression> e;
+    Arbitrary < Expression > e;
 
-    List<Arbitrary<Expression>> cand = new ArrayList<>();
+    List < Arbitrary < Expression >> cand = new ArrayList < > ();
 
     if (t.toString().equals(PrimitiveType.booleanType().asString())) {
       cand.add(
@@ -427,13 +427,13 @@ public class JRGCore {
   }
 
   @Provide
-  public Arbitrary<Expression> genExpressionOperatorFor(
-    Map<String, String> ctx,
+  public Arbitrary < Expression > genExpressionOperatorFor(
+    Map < String, String > ctx,
     Type t,
     VariableDeclarator e,
-    Arbitrary<LiteralExpr> ex
+    Arbitrary < LiteralExpr > ex
   ) {
-    List<Arbitrary<Expression>> cand = new ArrayList<>();
+    List < Arbitrary < Expression >> cand = new ArrayList < > ();
 
     if (t.toString().equals(PrimitiveType.intType().asString())) {
       cand.add(
@@ -444,13 +444,13 @@ public class JRGCore {
     return Arbitraries.oneOf(cand);
   }
 
-  public Arbitrary<Expression> genExpressionMatchOperatorFor(
-    Map<String, String> ctx,
+  public Arbitrary < Expression > genExpressionMatchOperatorFor(
+    Map < String, String > ctx,
     Type t,
     VariableDeclarator e,
-    Arbitrary<LiteralExpr> ex
+    Arbitrary < LiteralExpr > ex
   ) {
-    List<Arbitrary<Expression>> cand = new ArrayList<>();
+    List < Arbitrary < Expression >> cand = new ArrayList < > ();
 
     if (t.toString().equals(PrimitiveType.intType().asString())) {
       cand.add(Arbitraries.oneOf(mOperator.genArithBooleanFor(ctx, e, ex)));

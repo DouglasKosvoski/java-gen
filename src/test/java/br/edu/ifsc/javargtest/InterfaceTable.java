@@ -16,28 +16,28 @@ import java.util.List;
  */
 public class InterfaceTable {
 
-  private List<String> mImports;
+  private List < String > mImports;
 
-  public InterfaceTable(List<String> imports) {
+  public InterfaceTable(List < String > imports) {
     mImports = imports;
   }
 
   public void show_imports() {
     System.out.println("Printing imports:");
-    for (String imp : mImports) {
+    for (String imp: mImports) {
       System.out.println(imp);
     }
   }
 
   public void get_methods() throws ClassNotFoundException {
-    for (String imp : mImports) {
+    for (String imp: mImports) {
       System.out.println("\nImport name: " + imp);
-      Class<?> c = Class.forName(imp);
+      Class < ? > c = Class.forName(imp);
       Method m[] = c.getDeclaredMethods();
 
       System.out.println("Listing available methods:");
       int count = 0;
-      for (Method method : m) {
+      for (Method method: m) {
         System.out.println(count + " -> " + method.toString());
         count += 1;
       }
@@ -48,10 +48,10 @@ public class InterfaceTable {
   }
 
   public void get_methods_info() throws ClassNotFoundException {
-    for (String imp : mImports) {
+    for (String imp: mImports) {
       System.out.println("Import: " + imp);
 
-      Class<?> cls = Class.forName(imp);
+      Class < ? > cls = Class.forName(imp);
       Method methlist[] = cls.getDeclaredMethods();
       int i, j;
       for (i = 0; i < methlist.length; i++) {
@@ -59,7 +59,7 @@ public class InterfaceTable {
         System.out.println("method_name -> " + m.getName());
         // System.out.println("declaring_class -> " + m.getDeclaringClass());
 
-        Class<?> pvec[] = m.getParameterTypes();
+        Class < ? > pvec[] = m.getParameterTypes();
         for (j = 0; j < pvec.length; j++) {
           System.out.println("param_#" + j + " -> " + pvec[j]);
         }
@@ -79,15 +79,15 @@ public class InterfaceTable {
         System.out.println("No methods found");
       }
       System.out.println(
-          "-------------------------------------------------------\n");
+        "-------------------------------------------------------\n");
     }
   }
 
-  public List<String> getCandidateInterfaces(String type)
-      throws ClassNotFoundException {
-    List<String> candidates = new ArrayList<>();
-    
-    for (String c : mImports) {
+  public List < String > getCandidateInterfaces(String type)
+  throws ClassNotFoundException {
+    List < String > candidates = new ArrayList < > ();
+
+    for (String c: mImports) {
       String interfaces = getClassInterfaces(c);
 
       if (!interfaces.isEmpty()) {
