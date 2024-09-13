@@ -61,4 +61,4 @@ nbdist/
 
 .jqwik-database
 ast.dot
-logCompilacao.txt
+compilation_log.txt

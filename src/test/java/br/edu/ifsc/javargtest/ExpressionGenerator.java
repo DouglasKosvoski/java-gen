@@ -29,7 +29,7 @@ public class ExpressionGenerator {
   }
 
   @Provide
-  public Arbitrary < BinaryExpr > genLogiExpression(Map < String, String > ctx) {
+  public Arbitrary < BinaryExpr > genLogicExpression(Map < String, String > ctx) {
     Arbitrary < Expression > e = mCore.genExpression(
       ctx,
       PrimitiveType.booleanType()

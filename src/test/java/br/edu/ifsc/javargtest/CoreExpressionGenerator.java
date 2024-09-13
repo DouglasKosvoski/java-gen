@@ -36,9 +36,7 @@ public class CoreExpressionGenerator {
 
   private ExpressionGenerator mOperator;
 
-  //private Map<String, String> mCtx;
-
-  private List < String > mValidNames;
+  private List<String> mValidNames;
 
   int mFuel;
 
@@ -48,8 +46,6 @@ public class CoreExpressionGenerator {
     mBase = base;
 
     mOperator = new ExpressionGenerator(mCT, mBase, this);
-
-    //mCtx = new HashMap<String, String>();
 
     mValidNames = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
@@ -62,19 +58,19 @@ public class CoreExpressionGenerator {
     List < Arbitrary < Expression >> cand = new ArrayList < > ();
 
     try {
-      if (mFuel > 0) { // Permite a recursão até certo ponto
+      if (mFuel > 0) { // allow recursion until certain point
         mFuel--;
 
         if (t.toString().equals(PrimitiveType.booleanType().asString())) {
           cand.add(
             Arbitraries.oneOf(
-              mOperator.genLogiExpression(ctx),
+              mOperator.genLogicExpression(ctx),
               mOperator.genRelaExpression(ctx)
             )
           );
         }
 
-        // Candidatos de tipos primitivos
+        // primitive types candidates
         if (t.isPrimitiveType()) {
           cand.add(
             Arbitraries.oneOf(mBase.generatePrimitiveType(t.asPrimitiveType()))
@@ -85,32 +81,32 @@ public class CoreExpressionGenerator {
           cand.add(Arbitraries.oneOf(mOperator.genArithExpression(ctx, t)));
         }
 
-        // Se não for tipo primitivo
+        // if its not a primitive type
         if (!t.isPrimitiveType()) {
-          //Candidatos de construtores
+          // candidates constructors
           cand.add(Arbitraries.oneOf(genObjectCreation(ctx, t)));
         }
 
-        // Verifica se existem atributos candidatos
+        // check if there is candidate attributes
         if (!mCT.getCandidateFields(t.asString()).isEmpty()) {
           cand.add(Arbitraries.oneOf(genAttributeAccess(ctx, t)));
         }
 
-        //Verifica se existem candidados methods
+        // check if there is candidate methods
         if (!mCT.getCandidateMethods(t.asString()).isEmpty()) {
-          cand.add(Arbitraries.oneOf(genMethodInvokation(ctx, t)));
+          cand.add(Arbitraries.oneOf(genMethodInvocation(ctx, t)));
         }
 
-        // Verifica se existem candidados cast
+        // check if there is candidate cast
         if (!t.isPrimitiveType() && !mCT.subTypes2(t.asString()).isEmpty()) {
           cand.add(Arbitraries.oneOf(genUpCast(ctx, t)));
         }
 
-        // Verifica se existem candidados Var
+        // check if there is candidate Var
         if (ctx.containsValue(t.asString())) {
           cand.add(Arbitraries.oneOf(genVar(ctx, t)));
         }
-      } else { // Não permite aprofundar a recursão
+      } else { // don't allow deeper recursion
         if (t.isPrimitiveType()) {
           cand.add(
             Arbitraries.oneOf(mBase.generatePrimitiveType(t.asPrimitiveType()))
@@ -125,7 +121,7 @@ public class CoreExpressionGenerator {
           cand.add(Arbitraries.oneOf(genVar(ctx, t)));
         }
         //if (t.toString().equals(PrimitiveType.booleanType().asString())) {
-        //    cand.add(Arbitraries.oneOf(mOperator.genLogiExpression(ctx),
+        //    cand.add(Arbitraries.oneOf(mOperator.genLogicExpression(ctx),
         //    mOperator.genRelaExpression(ctx)));
         //}
 
@@ -145,7 +141,7 @@ public class CoreExpressionGenerator {
     Map < String, String > ctx,
     List < Type > types
   ) {
-    MessageLogger.log(MessageLogger.Severity.TRACE, "genExpressionList::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genExpressionList::start");
 
     MessageLogger.log(
       MessageLogger.Severity.TRACE,
@@ -171,7 +167,7 @@ public class CoreExpressionGenerator {
     Type t
   )
   throws ClassNotFoundException {
-    MessageLogger.log(MessageLogger.Severity.TRACE, "genObjectCreation::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genObjectCreation::start");
 
     List < Constructor > constrs;
 
@@ -221,7 +217,7 @@ public class CoreExpressionGenerator {
   throws ClassNotFoundException {
     MessageLogger.log(
       MessageLogger.Severity.TRACE,
-      "genAttributeAccess::inicio"
+      "genAttributeAccess::start"
     );
 
     Arbitrary < Field > f = genCandidatesField(t.asString());
@@ -251,21 +247,21 @@ public class CoreExpressionGenerator {
   }
 
   @Provide
-  public Arbitrary < MethodCallExpr > genMethodInvokation(
+  public Arbitrary < MethodCallExpr > genMethodInvocation(
     Map < String, String > ctx,
     Type t
   )
   throws ClassNotFoundException {
     MessageLogger.log(
       MessageLogger.Severity.TRACE,
-      "genMethodInvokation:" + ":inicio"
+      "genMethodInvocation:" + ":start"
     );
 
     Arbitrary < Method > methods;
 
     MessageLogger.log(
       MessageLogger.Severity.DEBUG,
-      "genMethodInvokation:" + ":t = " + t.asString()
+      "genMethodInvocation:" + ":t = " + t.asString()
     );
 
     methods = genCandidatesMethods(t.asString());
@@ -295,7 +291,7 @@ public class CoreExpressionGenerator {
       )
       .collect(Collectors.toList());
 
-    MessageLogger.log(MessageLogger.Severity.TRACE, "genMethodInvokation::fim");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genMethodInvocation::fim");
 
     return genExpressionList(ctx, types)
       .map(el -> new MethodCallExpr(e.sample(), method.getName(), el));
@@ -303,7 +299,7 @@ public class CoreExpressionGenerator {
 
   @Provide
   public Arbitrary < NameExpr > genVar(Map < String, String > ctx, Type t) {
-    MessageLogger.log(MessageLogger.Severity.TRACE, "genVar::inicio");
+    MessageLogger.log(MessageLogger.Severity.TRACE, "genVar::start");
 
     List < NameExpr > collect = ctx
       .entrySet()
@@ -410,7 +406,7 @@ public class CoreExpressionGenerator {
     if (t.toString().equals(PrimitiveType.booleanType().asString())) {
       cand.add(
         Arbitraries.oneOf(
-          mOperator.genLogiExpression(ctx),
+          mOperator.genLogicExpression(ctx),
           mOperator.genRelaExpression(ctx)
         )
       );
