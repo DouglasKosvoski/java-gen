@@ -1,4 +1,4 @@
-package br.edu.ifsc.javargtest;
+package ifsc.java_generator_test;
 
 import com.github.javaparser.ast.expr.BooleanLiteralExpr;
 import com.github.javaparser.ast.expr.CharLiteralExpr;

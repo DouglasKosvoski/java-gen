@@ -1,6 +1,6 @@
-package br.edu.ifsc.javargtest;
+package ifsc.java_generator_test;
 
-import br.edu.ifsc.javargtest.MessageLogger.Severity;
+import ifsc.java_generator_test.MessageLogger.Severity;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.*;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -30,7 +30,7 @@ import net.jqwik.api.lifecycle.BeforeTry;
  */
 public class MainTests {
 
-  private static final String SKELETON_PATH = "src/main/java/br/edu/ifsc/javarg/MainClass.java";
+  private static final String SKELETON_PATH = "src/main/java/ifsc/java_generator/MainClass.java";
 
   private CompilationUnit mSkeleton;
 
@@ -184,7 +184,7 @@ public class MainTests {
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
 
-    c.setName("br.edu.ifsc.javargexamples.B");
+    c.setName("ifsc.java_generator_examples.B");
 
     // Arbitrary<ObjectCreationExpr> e = mCore.genObjectCreation(c);
     Arbitrary < Expression > e = mCore.genObjectCreation(mCtx, c);
@@ -215,7 +215,7 @@ public class MainTests {
 
     ClassOrInterfaceType c = new ClassOrInterfaceType();
 
-    c.setName("br.edu.ifsc.javargexamples.B");
+    c.setName("ifsc.java_generator_examples.B");
     // Arbitrary<MethodCallExpr> e = mCore.genMethodInvocation(c);
     Arbitrary < MethodCallExpr > e = mCore.genMethodInvocation(
       mCtx,
@@ -295,7 +295,7 @@ public class MainTests {
       "checkGenCandidatesConstructors" + "::start");
 
     Arbitrary < Constructor > b = mCore.genCandidatesConstructors(
-      "br.edu." + "ifsc.javargexamples.B");
+      "" + "ifsc.java_generator_examples.B");
 
     System.out.println("Candidates Constructors: " + b.sample());
 
@@ -367,7 +367,7 @@ public class MainTests {
     Arbitrary < CastExpr > e = mCore.genUpCast(
       mCtx,
       JavaTypeTranslator.convertToParserType(
-        "br.edu.ifsc." + "javargexamples.Aextend"));
+        "ifsc." + "java_generator_examples.Aextend"));
 
     System.out.println("CheckGenUpCast: " + e.sample());
 
@@ -406,7 +406,7 @@ public class MainTests {
     MessageLogger.log(Severity.TRACE, "checkSuperTypes" + "::start");
 
     List < Class > b = mCT.superTypes(
-      "br.edu.ifsc." + "javargexamples.AextendExtend");
+      "ifsc." + "java_generator_examples.AextendExtend");
 
     b.forEach(i -> {
       System.out.println("SuperTypes: " + i);
@@ -427,7 +427,7 @@ public class MainTests {
   boolean checkSubTypes() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkSubTypes" + "::start");
 
-    List < Class > b = mCT.subTypes("br.edu.ifsc." + "javargexamples.A");
+    List < Class > b = mCT.subTypes("ifsc." + "java_generator_examples.A");
 
     b.forEach(i -> {
       System.out.println("subTypes: " + i.toString());
@@ -450,7 +450,7 @@ public class MainTests {
   boolean checkSubTypes2() throws ClassNotFoundException {
     MessageLogger.log(Severity.TRACE, "checkSubTypes" + "::start");
 
-    List < Class > b = mCT.subTypes2("br.edu.ifsc." + "javargexamples.A");
+    List < Class > b = mCT.subTypes2("ifsc." + "java_generator_examples.A");
 
     b.forEach(i -> {
       System.out.println("subTypes: " + i.toString());
@@ -474,7 +474,7 @@ public class MainTests {
       "checkGenCandidateUpCast" + "::start");
 
     Arbitrary < Class > b = mCore.genCandidateUpCast(
-      "br.edu.ifsc." + "javargexamples.A");
+      "ifsc." + "java_generator_examples.A");
 
     System.out.println("Candidates UpCast: " + b.sample().getName());
 

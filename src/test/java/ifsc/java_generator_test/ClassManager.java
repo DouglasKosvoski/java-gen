@@ -1,4 +1,4 @@
-package br.edu.ifsc.javargtest;
+package ifsc.java_generator_test;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package br.edu.ifsc.javargtest;
+package ifsc.java_generator_test;
 
 /**
  * A logging utility class for displaying messages based on severity levels.
