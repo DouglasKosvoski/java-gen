@@ -1,4 +1,4 @@
-package br.edu.ifsc.javargtest;
+package ifsc.java_generator_test;
 
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.BinaryExpr;
@@ -13,19 +13,14 @@ import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Provide;
 
-/**
- * 
- * @author unknown
- * 
- */
-public class JRGOperator {
-  private ClassTable mCT;
+public class ExpressionGenerator {
+  private ClassManager mCT;
 
-  private JRGBase mBase;
+  private TypeGenerator mBase;
 
-  private JRGCore mCore;
+  private CoreExpressionGenerator mCore;
 
-  public JRGOperator(ClassTable ct, JRGBase base, JRGCore core) {
+  public ExpressionGenerator(ClassManager ct, TypeGenerator base, CoreExpressionGenerator core) {
     mCT = ct;
 
     mBase = base;
@@ -34,13 +29,13 @@ public class JRGOperator {
   }
 
   @Provide
-  public Arbitrary<BinaryExpr> genLogiExpression(Map<String, String> ctx) {
-    Arbitrary<Expression> e = mCore.genExpression(
+  public Arbitrary < BinaryExpr > genLogicExpression(Map < String, String > ctx) {
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
       PrimitiveType.booleanType()
     );
 
-    Arbitrary<Expression> ex = mCore.genExpression(
+    Arbitrary < Expression > ex = mCore.genExpression(
       ctx,
       PrimitiveType.booleanType()
     );
@@ -51,20 +46,20 @@ public class JRGOperator {
   }
 
   @Provide
-  public Arbitrary<BinaryExpr> genArithExpression(
-    Map<String, String> ctx,
+  public Arbitrary < BinaryExpr > genArithExpression(
+    Map < String, String > ctx,
     Type t
   ) {
     //String tp = t.asString();
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.convertToParserType(t.toString())
     );
 
-    Arbitrary<Expression> ex = mCore.genExpression(
+    Arbitrary < Expression > ex = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(t.toString())
+      JavaTypeTranslator.convertToParserType(t.toString())
     );
 
     return e.map(
@@ -73,67 +68,69 @@ public class JRGOperator {
   }
 
   @Provide
-  public Arbitrary<BinaryExpr> genRelacionalBooleanFor(
-    Map<String, String> ctx,
-    VariableDeclarator var,
-    Arbitrary<LiteralExpr> ex
+  public Arbitrary < BinaryExpr > genRelacionalBooleanFor(
+    Map < String, String > ctx,
+    VariableDeclarator
+    var,
+    Arbitrary < LiteralExpr > ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary < PrimitiveType.Primitive > t = mBase.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(
       exp ->
-        new BinaryExpr(
-          var.getNameAsExpression(),
-          ex.sample(),
-          genOperator().sample()
-        )
+      new BinaryExpr(
+        var.getNameAsExpression(),
+        ex.sample(),
+        genOperator().sample()
+      )
     );
   }
 
   @Provide
-  public Arbitrary<BinaryExpr> genArithBooleanFor(
-    Map<String, String> ctx,
-    VariableDeclarator var,
-    Arbitrary<LiteralExpr> ex
+  public Arbitrary < BinaryExpr > genArithBooleanFor(
+    Map < String, String > ctx,
+    VariableDeclarator
+    var,
+    Arbitrary < LiteralExpr > ex
   ) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+    Arbitrary < PrimitiveType.Primitive > t = mBase.generateMathematicalPrimitiveTypes();
     String tp = t.sample().toString();
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(
       exp ->
-        new BinaryExpr(
-          var.getNameAsExpression(),
-          ex.sample(),
-          genArithOperatorFor().sample()
-        )
+      new BinaryExpr(
+        var.getNameAsExpression(),
+        ex.sample(),
+        genArithOperatorFor().sample()
+      )
     );
   }
 
   @Provide
-  public Arbitrary<BinaryExpr> genRelaExpression(Map<String, String> ctx) {
-    Arbitrary<PrimitiveType.Primitive> t = mBase.primitiveTypesMatematicos();
+  public Arbitrary < BinaryExpr > genRelaExpression(Map < String, String > ctx) {
+    Arbitrary < PrimitiveType.Primitive > t = mBase.generateMathematicalPrimitiveTypes();
 
     String tp = t.sample().toString();
 
-    Arbitrary<Expression> e = mCore.genExpression(
+    Arbitrary < Expression > e = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
-    Arbitrary<Expression> ex = mCore.genExpression(
+    Arbitrary < Expression > ex = mCore.genExpression(
       ctx,
-      ReflectParserTranslator.reflectToParserType(tp)
+      JavaTypeTranslator.convertToParserType(tp)
     );
 
     return e.map(
@@ -142,7 +139,7 @@ public class JRGOperator {
   }
 
   //Bo
-  public Arbitrary<BinaryExpr.Operator> genLogiOperator() {
+  public Arbitrary < BinaryExpr.Operator > genLogiOperator() {
     return Arbitraries.of(
       BinaryExpr.Operator.AND,
       BinaryExpr.Operator.OR,
@@ -151,7 +148,7 @@ public class JRGOperator {
   }
 
   //Au
-  public Arbitrary<BinaryExpr.Operator> genRelaOperator() {
+  public Arbitrary < BinaryExpr.Operator > genRelaOperator() {
     return Arbitraries.of(
       BinaryExpr.Operator.EQUALS,
       BinaryExpr.Operator.GREATER,
@@ -163,7 +160,7 @@ public class JRGOperator {
   }
 
   //Ma
-  public Arbitrary<BinaryExpr.Operator> genArithOperator() {
+  public Arbitrary < BinaryExpr.Operator > genArithOperator() {
     return Arbitraries.of(
       BinaryExpr.Operator.EQUALS,
       BinaryExpr.Operator.MULTIPLY,
@@ -173,7 +170,7 @@ public class JRGOperator {
     );
   }
 
-  public Arbitrary<BinaryExpr.Operator> genBooOperator() {
+  public Arbitrary < BinaryExpr.Operator > genBooOperator() {
     return Arbitraries.of(
       BinaryExpr.Operator.DIVIDE,
       BinaryExpr.Operator.MULTIPLY,
@@ -183,14 +180,14 @@ public class JRGOperator {
     );
   }
 
-  public Arbitrary<BinaryExpr.Operator> genOperator() {
+  public Arbitrary < BinaryExpr.Operator > genOperator() {
     return Arbitraries.of(
       BinaryExpr.Operator.LESS,
       BinaryExpr.Operator.LESS_EQUALS
     );
   }
 
-  public Arbitrary<BinaryExpr.Operator> genArithOperatorFor() {
+  public Arbitrary < BinaryExpr.Operator > genArithOperatorFor() {
     return Arbitraries.of(
       BinaryExpr.Operator.PLUS,
       BinaryExpr.Operator.MULTIPLY
